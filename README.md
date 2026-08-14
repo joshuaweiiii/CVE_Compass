@@ -12,8 +12,11 @@ Got a sample snippet of NVD CVE data (10 cve recordings).
 
 #### Useful Paths
 CVE_ID -> vulnerabilities[i].cve.id
+
 Description -> vulnerabilities[i].cve.descriptions[0].value
+
 Severity -> vulnerabilities[i].cve.metrics.cvssMetricV2[0].baseSeverity 
+
 Affected Product -> vulnerabilities[i].cve.configurations[0].nodes[0].cpeMatch[0].criteria
 
 Note: cvssMetricV2 is mostly 1990s. Newer ones are V3 or V4
