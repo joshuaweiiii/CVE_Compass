@@ -1,0 +1,1404 @@
+{
+  "resultsPerPage": 10,
+  "startIndex": 0,
+  "totalResults": 377281,
+  "format": "NVD_CVE",
+  "version": "2.0",
+  "timestamp": "2026-08-14T17:23:30.872",
+  "vulnerabilities": [
+    {
+      "cve": {
+        "id": "CVE-1999-0095",
+        "sourceIdentifier": "cve@mitre.org",
+        "published": "1988-10-01T04:00:00.000",
+        "lastModified": "2026-06-16T21:47:34.460",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "The debug command in Sendmail is enabled, allowing attackers to execute commands as root."
+          },
+          {
+            "lang": "es",
+            "value": "El comando de depuraci\u00f3n de Sendmail est\u00e1 activado, permitiendo a atacantes ejecutar comandos como root."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cve@mitre.org",
+            "affectedData": [
+              {
+                "vendor": "n/a",
+                "product": "n/a",
+                "versions": [
+                  {
+                    "version": "n/a",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV2": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:C/I:C/A:C",
+                "baseScore": 10.0,
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE"
+              },
+              "baseSeverity": "HIGH",
+              "exploitabilityScore": 10.0,
+              "impactScore": 10.0,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-Other"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:eric_allman:sendmail:5.58:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "1D07F493-9C8D-44A4-8652-F28B46CBA27C"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "http://seclists.org/fulldisclosure/2019/Jun/16",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "http://www.openwall.com/lists/oss-security/2019/06/05/4",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "http://www.openwall.com/lists/oss-security/2019/06/06/1",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "http://www.osvdb.org/195",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "http://www.securityfocus.com/bid/1",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "http://seclists.org/fulldisclosure/2019/Jun/16",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          },
+          {
+            "url": "http://www.openwall.com/lists/oss-security/2019/06/05/4",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          },
+          {
+            "url": "http://www.openwall.com/lists/oss-security/2019/06/06/1",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          },
+          {
+            "url": "http://www.osvdb.org/195",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          },
+          {
+            "url": "http://www.securityfocus.com/bid/1",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-1999-0082",
+        "sourceIdentifier": "cve@mitre.org",
+        "published": "1988-11-11T05:00:00.000",
+        "lastModified": "2026-06-16T21:47:32.300",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "CWD ~root command in ftpd allows root access."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cve@mitre.org",
+            "affectedData": [
+              {
+                "vendor": "n/a",
+                "product": "n/a",
+                "versions": [
+                  {
+                    "version": "n/a",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV2": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:C/I:C/A:C",
+                "baseScore": 10.0,
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE"
+              },
+              "baseSeverity": "HIGH",
+              "exploitabilityScore": 10.0,
+              "impactScore": 10.0,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-Other"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:ftp:ftp:*:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "30D7F58F-4C55-4D19-984C-79B6C9525BEB"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:ftpcd:ftpcd:*:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "1D85A7F5-C187-4707-8681-F96A91F58318"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "http://www.alw.nih.gov/Security/Docs/admin-guide-to-cracking.101.html",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "http://www.alw.nih.gov/Security/Docs/admin-guide-to-cracking.101.html",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-1999-1471",
+        "sourceIdentifier": "cve@mitre.org",
+        "published": "1989-01-01T05:00:00.000",
+        "lastModified": "2026-06-16T21:50:30.747",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Buffer overflow in passwd in BSD based operating systems 4.3 and earlier allows local users to gain root privileges by specifying a long shell or GECOS field."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cve@mitre.org",
+            "affectedData": [
+              {
+                "vendor": "n/a",
+                "product": "n/a",
+                "versions": [
+                  {
+                    "version": "n/a",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV2": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "2.0",
+                "vectorString": "AV:L/AC:L/Au:N/C:C/I:C/A:C",
+                "baseScore": 7.2,
+                "accessVector": "LOCAL",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE"
+              },
+              "baseSeverity": "HIGH",
+              "exploitabilityScore": 3.9,
+              "impactScore": 10.0,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-Other"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:bsd:bsd:4.2:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "32E0E862-63E6-42DA-8CCC-AAAC581FE211"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:bsd:bsd:4.3:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "388BB5C2-53B3-4597-913C-7D86E585CCD5"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "http://www.cert.org/advisories/CA-1989-01.html",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Patch",
+              "Third Party Advisory",
+              "US Government Resource"
+            ]
+          },
+          {
+            "url": "http://www.iss.net/security_center/static/7152.php",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "http://www.securityfocus.com/bid/4",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "http://www.cert.org/advisories/CA-1989-01.html",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Patch",
+              "Third Party Advisory",
+              "US Government Resource"
+            ]
+          },
+          {
+            "url": "http://www.iss.net/security_center/static/7152.php",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          },
+          {
+            "url": "http://www.securityfocus.com/bid/4",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-1999-1122",
+        "sourceIdentifier": "cve@mitre.org",
+        "published": "1989-07-26T04:00:00.000",
+        "lastModified": "2026-06-16T21:49:46.027",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Vulnerability in restore in SunOS 4.0.3 and earlier allows local users to gain privileges."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cve@mitre.org",
+            "affectedData": [
+              {
+                "vendor": "n/a",
+                "product": "n/a",
+                "versions": [
+                  {
+                    "version": "n/a",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV2": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "2.0",
+                "vectorString": "AV:L/AC:L/Au:N/C:P/I:P/A:P",
+                "baseScore": 4.6,
+                "accessVector": "LOCAL",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL"
+              },
+              "baseSeverity": "MEDIUM",
+              "exploitabilityScore": 3.9,
+              "impactScore": 6.4,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-Other"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:*:*:*:*:*:*:*:*",
+                    "versionEndIncluding": "4.0.3",
+                    "matchCriteriaId": "8ABF98B1-CBDE-4E12-8F3F-9D9E22E72236"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "2839042D-7706-4059-B069-72E36297ECEB"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0.1:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "3791C6C1-2B30-4746-B4D5-A728914C3589"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "http://www.cert.org/advisories/CA-1989-02.html",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Patch",
+              "Third Party Advisory",
+              "US Government Resource"
+            ]
+          },
+          {
+            "url": "http://www.ciac.org/ciac/bulletins/ciac-08.shtml",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "http://www.securityfocus.com/bid/3",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "https://exchange.xforce.ibmcloud.com/vulnerabilities/6695",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "http://www.cert.org/advisories/CA-1989-02.html",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Patch",
+              "Third Party Advisory",
+              "US Government Resource"
+            ]
+          },
+          {
+            "url": "http://www.ciac.org/ciac/bulletins/ciac-08.shtml",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          },
+          {
+            "url": "http://www.securityfocus.com/bid/3",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          },
+          {
+            "url": "https://exchange.xforce.ibmcloud.com/vulnerabilities/6695",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-1999-1467",
+        "sourceIdentifier": "cve@mitre.org",
+        "published": "1989-10-26T04:00:00.000",
+        "lastModified": "2026-06-16T21:50:30.147",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Vulnerability in rcp on SunOS 4.0.x allows remote attackers from trusted hosts to execute arbitrary commands as root, possibly related to the configuration of the nobody user."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cve@mitre.org",
+            "affectedData": [
+              {
+                "vendor": "n/a",
+                "product": "n/a",
+                "versions": [
+                  {
+                    "version": "n/a",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV2": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:C/I:C/A:C",
+                "baseScore": 10.0,
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE"
+              },
+              "baseSeverity": "HIGH",
+              "exploitabilityScore": 10.0,
+              "impactScore": 10.0,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-Other"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "2839042D-7706-4059-B069-72E36297ECEB"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0.1:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "3791C6C1-2B30-4746-B4D5-A728914C3589"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0.2:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "1C25D2DE-7ED7-47E3-A49F-1F42B57500CD"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0.3:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "5FF99415-1F8D-4926-BB55-240B1F116800"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0.3c:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "27C5561B-F8AE-4AD2-BD1C-E9089F315277"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "http://www.cert.org/advisories/CA-1989-07.html",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Patch",
+              "Third Party Advisory",
+              "US Government Resource"
+            ]
+          },
+          {
+            "url": "http://www.securityfocus.com/bid/5",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "https://exchange.xforce.ibmcloud.com/vulnerabilities/3165",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "http://www.cert.org/advisories/CA-1989-07.html",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Patch",
+              "Third Party Advisory",
+              "US Government Resource"
+            ]
+          },
+          {
+            "url": "http://www.securityfocus.com/bid/5",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "https://exchange.xforce.ibmcloud.com/vulnerabilities/3165",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-1999-1506",
+        "sourceIdentifier": "cve@mitre.org",
+        "published": "1990-01-29T05:00:00.000",
+        "lastModified": "2026-06-16T21:50:35.230",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Vulnerability in SMI Sendmail 4.0 and earlier, on SunOS up to 4.0.3, allows remote attackers to access user bin."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cve@mitre.org",
+            "affectedData": [
+              {
+                "vendor": "n/a",
+                "product": "n/a",
+                "versions": [
+                  {
+                    "version": "n/a",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV2": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "baseScore": 7.5,
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL"
+              },
+              "baseSeverity": "HIGH",
+              "exploitabilityScore": 10.0,
+              "impactScore": 6.4,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-Other"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:3.5:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "BDE2EAC5-0657-48FD-B4F8-D2DB6AABAE4F"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "2839042D-7706-4059-B069-72E36297ECEB"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0.1:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "3791C6C1-2B30-4746-B4D5-A728914C3589"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0.2:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "1C25D2DE-7ED7-47E3-A49F-1F42B57500CD"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0.3:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "5FF99415-1F8D-4926-BB55-240B1F116800"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0.3c:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "27C5561B-F8AE-4AD2-BD1C-E9089F315277"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "http://www.cert.org/advisories/CA-90.01.sun.sendmail.vulnerability",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Third Party Advisory",
+              "US Government Resource"
+            ]
+          },
+          {
+            "url": "http://www.securityfocus.com/bid/6",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "http://www.cert.org/advisories/CA-90.01.sun.sendmail.vulnerability",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Third Party Advisory",
+              "US Government Resource"
+            ]
+          },
+          {
+            "url": "http://www.securityfocus.com/bid/6",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-1999-0084",
+        "sourceIdentifier": "cve@mitre.org",
+        "published": "1990-05-01T04:00:00.000",
+        "lastModified": "2026-06-16T21:47:32.553",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Certain NFS servers allow users to use mknod to gain privileges by creating a writable kmem device and setting the UID to 0."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cve@mitre.org",
+            "affectedData": [
+              {
+                "vendor": "n/a",
+                "product": "n/a",
+                "versions": [
+                  {
+                    "version": "n/a",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "affectedData": [
+              {
+                "vendor": "sun",
+                "product": "nfs",
+                "defaultStatus": "unknown",
+                "cpes": [
+                  "cpe:2.3:a:sun:nfs:*:*:*:*:*:*:*:*"
+                ],
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "4.1.3",
+                    "versionType": "custom",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 8.4,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 2.5,
+              "impactScore": 5.9
+            }
+          ],
+          "cvssMetricV2": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "2.0",
+                "vectorString": "AV:L/AC:L/Au:N/C:C/I:C/A:C",
+                "baseScore": 7.2,
+                "accessVector": "LOCAL",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE"
+              },
+              "baseSeverity": "HIGH",
+              "exploitabilityScore": 3.9,
+              "impactScore": 10.0,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2024-08-01T20:30:39.205373Z",
+                "id": "CVE-1999-0084",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-Other"
+              }
+            ]
+          },
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-269"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:sun:nfs:*:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "A53226D2-00D1-4D69-AF1A-A9EBD5B7DE5F"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://exchange.xforce.ibmcloud.com/vulnerabilities/78",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "https://exchange.xforce.ibmcloud.com/vulnerabilities/78",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2000-0388",
+        "sourceIdentifier": "cve@mitre.org",
+        "published": "1990-05-09T04:00:00.000",
+        "lastModified": "2026-06-16T21:51:36.727",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Buffer overflow in FreeBSD libmytinfo library allows local users to execute commands via a long TERMCAP environmental variable."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cve@mitre.org",
+            "affectedData": [
+              {
+                "vendor": "n/a",
+                "product": "n/a",
+                "versions": [
+                  {
+                    "version": "n/a",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV2": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "baseScore": 7.5,
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL"
+              },
+              "baseSeverity": "HIGH",
+              "exploitabilityScore": 10.0,
+              "impactScore": 6.4,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": true,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-Other"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:freebsd:freebsd:3.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "EE38C50A-81FE-412E-9717-3672FAE6A6F4"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:freebsd:freebsd:3.1:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "263F3734-7076-4EA8-B4C0-F37CFC4E979E"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:freebsd:freebsd:3.2:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "0419DD66-FF66-48BC-AD3B-F6AFD0551E36"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:freebsd:freebsd:3.3:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "C3518628-08E5-4AD7-AAF6-A4E38F1CDE2C"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:freebsd:freebsd:3.4:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "B982342C-1981-4C55-8044-AFE4D87623DF"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "ftp://ftp.freebsd.org/pub/FreeBSD/CERT/advisories/FreeBSD-SA-00%3A17.libmytinfo.asc",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "http://www.securityfocus.com/bid/1185",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "ftp://ftp.freebsd.org/pub/FreeBSD/CERT/advisories/FreeBSD-SA-00%3A17.libmytinfo.asc",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          },
+          {
+            "url": "http://www.securityfocus.com/bid/1185",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-1999-0209",
+        "sourceIdentifier": "cve@mitre.org",
+        "published": "1990-08-14T04:00:00.000",
+        "lastModified": "2026-06-16T21:47:54.977",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "The SunView (SunTools) selection_svc facility allows remote users to read files."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cve@mitre.org",
+            "affectedData": [
+              {
+                "vendor": "n/a",
+                "product": "n/a",
+                "versions": [
+                  {
+                    "version": "n/a",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV2": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:N/A:N",
+                "baseScore": 5.0,
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "NONE"
+              },
+              "baseSeverity": "MEDIUM",
+              "exploitabilityScore": 10.0,
+              "impactScore": 2.9,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-Other"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:3.5:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "BDE2EAC5-0657-48FD-B4F8-D2DB6AABAE4F"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "2839042D-7706-4059-B069-72E36297ECEB"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0.1:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "3791C6C1-2B30-4746-B4D5-A728914C3589"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0.2:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "1C25D2DE-7ED7-47E3-A49F-1F42B57500CD"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.0.3:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "5FF99415-1F8D-4926-BB55-240B1F116800"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.1:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "B5955AC0-3036-4943-B6BD-52DD3E039089"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:sun:sunos:4.1.1:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "92B19A06-832D-4974-9D08-2CE787228592"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "http://www.securityfocus.com/bid/8",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "http://www.securityfocus.com/bid/8",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-1999-1198",
+        "sourceIdentifier": "cve@mitre.org",
+        "published": "1990-10-03T04:00:00.000",
+        "lastModified": "2026-06-16T21:49:55.630",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "BuildDisk program on NeXT systems before 2.0 does not prompt users for the root password, which allows local users to gain root privileges."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cve@mitre.org",
+            "affectedData": [
+              {
+                "vendor": "n/a",
+                "product": "n/a",
+                "versions": [
+                  {
+                    "version": "n/a",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV2": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "2.0",
+                "vectorString": "AV:L/AC:L/Au:N/C:C/I:C/A:C",
+                "baseScore": 7.2,
+                "accessVector": "LOCAL",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE"
+              },
+              "baseSeverity": "HIGH",
+              "exploitabilityScore": 3.9,
+              "impactScore": 10.0,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": true,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-Other"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:next:next:*:*:*:*:*:*:*:*",
+                    "versionEndIncluding": "2.0",
+                    "matchCriteriaId": "AB5B9086-EC83-47C1-985A-7C088C84D858"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "http://ciac.llnl.gov/ciac/bulletins/b-01.shtml",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "http://www.cert.org/advisories/CA-1990-06.html",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Patch",
+              "Third Party Advisory",
+              "US Government Resource"
+            ]
+          },
+          {
+            "url": "http://www.iss.net/security_center/static/7141.php",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "http://www.securityfocus.com/bid/11",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "http://ciac.llnl.gov/ciac/bulletins/b-01.shtml",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "http://www.cert.org/advisories/CA-1990-06.html",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Patch",
+              "Third Party Advisory",
+              "US Government Resource"
+            ]
+          },
+          {
+            "url": "http://www.iss.net/security_center/static/7141.php",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          },
+          {
+            "url": "http://www.securityfocus.com/bid/11",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          }
+        ]
+      }
+    }
+  ]
+}
