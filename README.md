@@ -148,7 +148,7 @@ Created synthetic patch tracker. Tracks if specific CVE on specific asset has be
 Synthetic Patches Metadata:
 - `asset_id` — which machine with problem
 - `cve_id` — unique vulnerability ID
-- `first_detected_timestamp` — time when asset was flagged for coressponding CVE
+- `first_detected_timestamp` — time when asset was flagged for corresponding CVE
 - `patch_available` — true if fix possible/created
 - `patch_status` — `open` / `in_progress` / `patched` / `accepted_risk`
 - `patched_timestamp` — when it was fixed (`null` if not fixed)
