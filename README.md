@@ -10,7 +10,7 @@ It demonstrates how a data engineer collects, stores, cleans, matches, tests, an
 
 ### Aug 14
 
-#### Got a sample snippet of NVD CVE data (10 cve recordings).**
+### Got a sample snippet of NVD CVE data (10 cve recordings).
 
 __Useful Paths__
 
