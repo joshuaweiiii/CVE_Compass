@@ -2,7 +2,7 @@
 
 ## Overview
 
-This CVE Compass is an end-to-end Azure data engineering platform that identifies which publicly reported software vulnerabilities affect an organization’s computers, servers, and applications. 
+CVE Compass is an end-to-end Azure data engineering platform that identifies which publicly reported software vulnerabilities affect an organization’s computers, servers, and applications. 
 
 This project demonstrates how a data engineer like me, collects, stores, cleans, matches, tests, and delivers complex cybersecurity data through a production-style cloud pipeline. It solves a realistic business problem by helping security teams decide which vulnerable systems should be patched first instead of treating every published vulnerability equally.
 
