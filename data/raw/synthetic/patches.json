@@ -1,0 +1,32 @@
+[
+    {
+      "asset_id": "ASSET-001",
+      "cve_id": "CVE-2021-44228",
+      "first_detected_timestamp": "2026-07-15T08:00:00Z",
+      "patch_available": true,
+      "patch_status": "patched",
+      "patched_timestamp": "2026-07-20T16:30:00Z",
+      "remediation_owner": "platform-team",
+      "exception_reason": null
+    },
+    {
+      "asset_id": "ASSET-001",
+      "cve_id": "CVE-2021-41773",
+      "first_detected_timestamp": "2026-08-01T12:00:00Z",
+      "patch_available": true,
+      "patch_status": "open",
+      "patched_timestamp": null,
+      "remediation_owner": "platform-team",
+      "exception_reason": null
+    },
+    {
+      "asset_id": "ASSET-002",
+      "cve_id": "CVE-2024-0519",
+      "first_detected_timestamp": "2026-07-28T10:00:00Z",
+      "patch_available": true,
+      "patch_status": "accepted_risk",
+      "patched_timestamp": null,
+      "remediation_owner": "joshua",
+      "exception_reason": "legacy browser plugin; scheduled rebuild next quarter"
+    }
+  ]

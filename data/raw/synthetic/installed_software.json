@@ -1,0 +1,23 @@
+[
+    {
+      "asset_id": "ASSET-001", 
+      "software_vendor": "openssl",
+      "software_name": "openssl",
+      "installed_version": "1.0.2",
+      "last_observed_timestamp": "2026-08-01T12:00:00Z"
+    },
+    {
+      "asset_id": "ASSET-001",
+      "software_vendor": "apache",
+      "software_name": "http_server",
+      "installed_version": "2.4.49",
+      "last_observed_timestamp": "2026-08-01T12:00:00Z"
+    },
+    {
+      "asset_id": "ASSET-002",
+      "software_vendor": "google",
+      "software_name": "chrome",
+      "installed_version": "126.0.6478.126",
+      "last_observed_timestamp": "2026-08-02T09:30:00Z"
+    }
+  ]

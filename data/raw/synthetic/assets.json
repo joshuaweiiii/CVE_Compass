@@ -1,0 +1,24 @@
+[
+    {
+      "asset_id": "ASSET-001",
+      "hostname": "web-prod-01",
+      "device_type": "server",
+      "operating_system": "ubuntu",
+      "department": "engineering",
+      "business_criticality": "high",
+      "internet_exposed": true,
+      "asset_owner": "platform-team",
+      "last_scan_timestamp": "2026-08-01T12:00:00Z"
+    },
+    {
+      "asset_id": "ASSET-002",
+      "hostname": "laptop-jwei",
+      "device_type": "laptop",
+      "operating_system": "macos",
+      "department": "engineering",
+      "business_criticality": "medium",
+      "internet_exposed": false,
+      "asset_owner": "joshua",
+      "last_scan_timestamp": "2026-08-02T09:30:00Z"
+    }
+  ]
