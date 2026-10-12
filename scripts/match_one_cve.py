@@ -1,11 +1,11 @@
 import json
-from os import scandir
+from pathlib import Path
 
 # =========================
 # Loading
 # =========================
 
-#loading our matched cve
+#loading our matched 2021 cve
 with open("data/raw/nvd/cve-2021-41773.json") as mc:
     one_cve_data = json.load(mc)
 
@@ -39,18 +39,20 @@ for patch in syn_patches_data:
 # Main
 # =========================
 
-#load cve id being used (2021)
+#load cve id being used (2021 CVE)
 one_cve_id = one_cve_data["vulnerabilities"][0]["cve"]["id"] 
 
-#retrieving list of criteria strings (2021)
-criteria_list = []
+#retrieve list of criteria strings (2021 CVE)
+criteria_list = [] 
 configurations = one_cve_data["vulnerabilities"][0]["cve"]["configurations"]
 for configuration in configurations:
     for node in configuration["nodes"]:
         for cpe_match in node["cpeMatch"]:
             criteria_list.append(cpe_match["criteria"])
 
-#matching 2021 CVE to synthetic softwares + synthetic assets + synthetic patches
+#matching 2021 CVE to synthetic softwares + synthetic assets + synthetic patches and creating dict
+exposures = []
+
 for software in syn_cves_data:
     for criteria in criteria_list:
         if software["software_vendor"] in criteria and software["software_name"] in criteria and software["installed_version"] in criteria:
@@ -61,6 +63,24 @@ for software in syn_cves_data:
 
             print(patches_by_id[(software["asset_id"], one_cve_id)]["patch_status"])
 
-            
+            match_dict = {
+                "asset_id": software["asset_id"],
+                "cve_id": one_cve_id,
+                "vendor": software["software_vendor"],
+                "product": software["software_name"],
+                "version": software["installed_version"],
+                "hostname": asset["hostname"],
+                "business_criticality": asset["business_criticality"],
+                "internet_exposed": asset["internet_exposed"],
+                "patch_status": patches_by_id[(software["asset_id"], one_cve_id)]["patch_status"]
+            }
+
+            exposures.append(match_dict)
+
+#writing all cve matches to processed folder
+out_path = Path("data/processed/exposures.json")
+out_path.parent.mkdir(parents=True, exist_ok=True)
+with open(out_path, "w") as f:
+    json.dump(exposures, f, indent = 2)
 
             

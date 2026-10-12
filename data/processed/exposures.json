@@ -1,0 +1,13 @@
+[
+  {
+    "asset_id": "ASSET-001",
+    "cve_id": "CVE-2021-41773",
+    "vendor": "apache",
+    "product": "http_server",
+    "version": "2.4.49",
+    "hostname": "web-prod-01",
+    "business_criticality": "high",
+    "internet_exposed": true,
+    "patch_status": "open"
+  }
+]
