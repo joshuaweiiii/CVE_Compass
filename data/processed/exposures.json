@@ -8,6 +8,8 @@
     "hostname": "web-prod-01",
     "business_criticality": "high",
     "internet_exposed": true,
+    "base_score": 9.8,
+    "base_severity": "CRITICAL",
     "patch_status": "open"
   }
 ]

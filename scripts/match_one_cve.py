@@ -21,6 +21,13 @@ with open("data/raw/synthetic/assets.json") as a:
 with open("data/raw/synthetic/patches.json") as p:
     syn_patches_data = json.load(p)
 
+#load cve id being used (2021 CVE)
+one_cve_id = one_cve_data["vulnerabilities"][0]["cve"]["id"] 
+
+#load score + severity (2021 CVE)
+cve_score = one_cve_data["vulnerabilities"][0]["cve"]["metrics"]["cvssMetricV31"][0]["cvssData"]["baseScore"] 
+cve_severity = one_cve_data["vulnerabilities"][0]["cve"]["metrics"]["cvssMetricV31"][0]["cvssData"]["baseSeverity"] 
+
 # =========================
 # Dict Creation
 # =========================
@@ -38,9 +45,6 @@ for patch in syn_patches_data:
 # =========================
 # Main
 # =========================
-
-#load cve id being used (2021 CVE)
-one_cve_id = one_cve_data["vulnerabilities"][0]["cve"]["id"] 
 
 #retrieve list of criteria strings (2021 CVE)
 criteria_list = [] 
@@ -72,6 +76,8 @@ for software in syn_cves_data:
                 "hostname": asset["hostname"],
                 "business_criticality": asset["business_criticality"],
                 "internet_exposed": asset["internet_exposed"],
+                "base_score": cve_score,
+                "base_severity": cve_severity,
                 "patch_status": patches_by_id[(software["asset_id"], one_cve_id)]["patch_status"]
             }
 
