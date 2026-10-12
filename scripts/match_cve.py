@@ -21,6 +21,10 @@ with open("data/raw/synthetic/assets.json") as a:
 with open("data/raw/synthetic/patches.json") as p:
     syn_patches_data = json.load(p)
 
+#loading our 10 old cves
+with open("data/raw/nvd/sample_cves.json") as s:
+    sample_cves = json.load(s)
+
 # =========================
 # Dict Creation
 # =========================
@@ -40,13 +44,16 @@ for patch in syn_patches_data:
 # =========================
 
 exposures = []
+all_cves = sample_cves["vulnerabilities"] + one_cve_data["vulnerabilities"]
 
 #look through each individual cve
-for item in one_cve_data["vulnerabilities"]: 
+for item in all_cves: 
     cve = item["cve"] 
     cve_id = cve["id"] #cve id
 
     #pull score + severity
+    if "cvssMetricV31" not in cve["metrics"]:
+        continue
     for metric in cve["metrics"]["cvssMetricV31"]: 
         if metric["type"] == "Primary":
             cve_score = metric["cvssData"]["baseScore"]
