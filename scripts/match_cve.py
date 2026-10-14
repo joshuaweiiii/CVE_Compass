@@ -102,4 +102,3 @@ out_path.parent.mkdir(parents=True, exist_ok=True)
 with open(out_path, "w") as f:
     json.dump(exposures, f, indent = 2)
 
-            
