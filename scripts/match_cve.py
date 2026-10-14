@@ -54,13 +54,13 @@ for item in all_cves:
     #pull score + severity
     if "cvssMetricV31" not in cve["metrics"]:
         continue
-    
+
     cve_score = None
     for metric in cve["metrics"]["cvssMetricV31"]: 
         if metric["type"] == "Primary":
             cve_score = metric["cvssData"]["baseScore"]
             cve_severity = metric["cvssData"]["baseSeverity"]
-    if cve_score == None:
+    if cve_score is None:
         continue
 
     #pull criteria strings for current cve
