@@ -113,6 +113,7 @@ for item in all_cves:
                 }
                 exposures.append(match_dict)
 
+
 #writing all cve matches to processed folder
 out_path = Path("data/processed/exposures.json")
 out_path.parent.mkdir(parents=True, exist_ok=True)
