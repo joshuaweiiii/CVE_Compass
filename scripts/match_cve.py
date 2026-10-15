@@ -85,7 +85,7 @@ for item in all_cves:
                 else:
                     patch_status = patch["patch_status"]
 
-                if patch_status == "patched":
+                if patch_status == "patched": #priority to fix CVE
                     priority = "done"
                 elif (
                     patch_status == "open" 
