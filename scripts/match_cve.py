@@ -5,6 +5,10 @@ from pathlib import Path
 # Loading
 # =========================
 
+#loading our 10 old cves
+with open("data/raw/nvd/sample_cves.json") as s:
+    sample_cves = json.load(s)
+
 #loading our matched 2021 cve
 with open("data/raw/nvd/cve-2021-41773.json") as mc:
     one_cve_data = json.load(mc)
@@ -20,10 +24,6 @@ with open("data/raw/synthetic/assets.json") as a:
 #loading our synthetic patches
 with open("data/raw/synthetic/patches.json") as p:
     syn_patches_data = json.load(p)
-
-#loading our 10 old cves
-with open("data/raw/nvd/sample_cves.json") as s:
-    sample_cves = json.load(s)
 
 # =========================
 # Dict Creation

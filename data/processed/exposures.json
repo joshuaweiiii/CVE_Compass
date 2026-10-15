@@ -12,5 +12,19 @@
     "base_severity": "CRITICAL",
     "patch_status": "open",
     "priority": "patch_now"
+  },
+  {
+    "asset_id": "ASSET-002",
+    "cve_id": "CVE-2021-41773",
+    "vendor": "apache",
+    "product": "http_server",
+    "version": "2.4.49",
+    "hostname": "laptop-jwei",
+    "business_criticality": "medium",
+    "internet_exposed": false,
+    "base_score": 9.8,
+    "base_severity": "CRITICAL",
+    "patch_status": "open",
+    "priority": "review"
   }
 ]
