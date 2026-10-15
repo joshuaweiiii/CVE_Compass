@@ -85,6 +85,18 @@ for item in all_cves:
                 else:
                     patch_status = patch["patch_status"]
 
+                if patch_status == "patched":
+                    priority = "done"
+                elif (
+                    patch_status == "open" 
+                    and cve_severity == "CRITICAL" 
+                    and asset["internet_exposed"] is True 
+                    and asset["business_criticality"] == "high"
+                ):
+                    priority = "patch_now"
+                else:
+                    priority = "review"
+
                 match_dict = {
                     "asset_id": software["asset_id"],
                     "cve_id": cve_id,
@@ -96,7 +108,8 @@ for item in all_cves:
                     "internet_exposed": asset["internet_exposed"],
                     "base_score": cve_score,
                     "base_severity": cve_severity,
-                    "patch_status": patch_status
+                    "patch_status": patch_status,
+                    "priority": priority
                 }
                 exposures.append(match_dict)
 

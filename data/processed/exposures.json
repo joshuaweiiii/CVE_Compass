@@ -10,6 +10,7 @@
     "internet_exposed": true,
     "base_score": 9.8,
     "base_severity": "CRITICAL",
-    "patch_status": "open"
+    "patch_status": "open",
+    "priority": "patch_now"
   }
 ]
