@@ -16,7 +16,6 @@ with open("data/raw/nvd/cve-2021-41773.json") as mc:
 #loading our synthetic installed softwares
 with open("data/raw/synthetic/installed_software.json") as sc:
     syn_softwares_data = json.load(sc)
-    
 
 #loading our synthetic assets
 with open("data/raw/synthetic/assets.json") as a:
