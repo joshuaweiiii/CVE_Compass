@@ -8,7 +8,7 @@ OUTPUT_PATH = Path("data/raw/nvd/sample_cves.json")
 
 api_key = os.environ.get("NVD_API_KEY")
 
-headers = {"api_key": api_key}
+headers = {"apiKey": api_key}
 params = {"resultsPerPage": 10}
 
 response = requests.get(API_URL, headers=headers, params=params, timeout=10)
