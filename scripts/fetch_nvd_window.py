@@ -19,9 +19,15 @@ params = {
 response = requests.get(API_URL, headers=headers, params=params, timeout=60)
 print("status:", response.status_code) #200 good, 403 bad, 429 too much
 response.raise_for_status() #raises error and crashes script if there is one
+data = response.json()
+
+print("Total Results:", data["totalResults"])
+print("Results Per Page:", data["resultsPerPage"])
+print("Start Index:", data["startIndex"])
+print("Num Vulnerabilities:", len(data["vulnerabilities"]))
 
 OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
 with OUTPUT_PATH.open("w") as f:
-    json.dump(response.json(), f, indent=2)
+    json.dump(data, f, indent=2)
 
 print("saved:", OUTPUT_PATH)
