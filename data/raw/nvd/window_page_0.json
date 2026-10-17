@@ -4,7 +4,7 @@
   "totalResults": 2204,
   "format": "NVD_CVE",
   "version": "2.0",
-  "timestamp": "2026-10-16T09:06:42.593",
+  "timestamp": "2026-10-17T03:05:35.636",
   "vulnerabilities": [
     {
       "cve": {
@@ -59471,7 +59471,7 @@
         "id": "CVE-2026-77221",
         "sourceIdentifier": "disclosure@vulncheck.com",
         "published": "2026-09-01T20:17:23.207",
-        "lastModified": "2026-10-15T21:10:00.327",
+        "lastModified": "2026-10-16T15:10:00.103",
         "vulnStatus": "Rejected",
         "cveTags": [],
         "descriptions": [
@@ -59489,7 +59489,7 @@
         "id": "CVE-2026-77222",
         "sourceIdentifier": "disclosure@vulncheck.com",
         "published": "2026-09-01T20:17:23.280",
-        "lastModified": "2026-10-15T21:10:00.327",
+        "lastModified": "2026-10-16T15:10:00.103",
         "vulnStatus": "Rejected",
         "cveTags": [],
         "descriptions": [
@@ -59507,7 +59507,7 @@
         "id": "CVE-2026-77223",
         "sourceIdentifier": "disclosure@vulncheck.com",
         "published": "2026-09-01T20:17:23.333",
-        "lastModified": "2026-10-15T21:10:00.327",
+        "lastModified": "2026-10-16T15:10:00.103",
         "vulnStatus": "Rejected",
         "cveTags": [],
         "descriptions": [
@@ -151976,7 +151976,7 @@
         "id": "CVE-2026-66048",
         "sourceIdentifier": "disclosure@vulncheck.com",
         "published": "2026-09-03T05:05:41.247",
-        "lastModified": "2026-10-15T20:10:00.197",
+        "lastModified": "2026-10-16T15:10:00.103",
         "vulnStatus": "Rejected",
         "cveTags": [],
         "descriptions": [
@@ -151994,7 +151994,7 @@
         "id": "CVE-2026-66049",
         "sourceIdentifier": "disclosure@vulncheck.com",
         "published": "2026-09-03T05:05:41.440",
-        "lastModified": "2026-10-15T20:10:00.197",
+        "lastModified": "2026-10-16T15:10:00.103",
         "vulnStatus": "Rejected",
         "cveTags": [],
         "descriptions": [
@@ -157010,7 +157010,7 @@
         "id": "CVE-2026-78304",
         "sourceIdentifier": "cve@gitlab.com",
         "published": "2026-09-03T13:06:09.590",
-        "lastModified": "2026-10-15T21:10:00.327",
+        "lastModified": "2026-10-16T15:10:00.103",
         "vulnStatus": "Rejected",
         "cveTags": [],
         "descriptions": [
@@ -157638,7 +157638,7 @@
         "id": "CVE-2026-80726",
         "sourceIdentifier": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
         "published": "2026-09-03T13:06:11.020",
-        "lastModified": "2026-10-03T11:17:39.647",
+        "lastModified": "2026-10-16T20:18:09.240",
         "vulnStatus": "Received",
         "cveTags": [],
         "descriptions": [
@@ -157791,6 +157791,28 @@
               },
               "exploitabilityScore": 2.5,
               "impactScore": 6.0
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-10-16T19:21:10.444243Z",
+                "id": "CVE-2026-80726",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
             }
           ]
         },
@@ -158337,7 +158359,7 @@
         "id": "CVE-2026-80731",
         "sourceIdentifier": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
         "published": "2026-09-03T13:06:11.707",
-        "lastModified": "2026-09-04T05:17:13.583",
+        "lastModified": "2026-10-16T20:18:09.420",
         "vulnStatus": "Received",
         "cveTags": [],
         "descriptions": [
@@ -158564,6 +158586,28 @@
               },
               "exploitabilityScore": 1.8,
               "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-10-16T19:21:14.341917Z",
+                "id": "CVE-2026-80731",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
             }
           ]
         },
@@ -159465,7 +159509,7 @@
         "id": "CVE-2026-80737",
         "sourceIdentifier": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
         "published": "2026-09-03T13:06:12.623",
-        "lastModified": "2026-09-04T05:17:14.247",
+        "lastModified": "2026-10-16T20:18:09.597",
         "vulnStatus": "Received",
         "cveTags": [],
         "descriptions": [
@@ -159630,6 +159674,28 @@
               },
               "exploitabilityScore": 1.8,
               "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-10-16T19:21:17.321670Z",
+                "id": "CVE-2026-80737",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
             }
           ]
         },
@@ -161928,7 +161994,7 @@
         "id": "CVE-2026-80754",
         "sourceIdentifier": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
         "published": "2026-09-03T13:06:15.120",
-        "lastModified": "2026-09-04T05:17:15.447",
+        "lastModified": "2026-10-16T20:18:09.743",
         "vulnStatus": "Received",
         "cveTags": [],
         "descriptions": [
@@ -162093,6 +162159,28 @@
               },
               "exploitabilityScore": 1.8,
               "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-10-16T19:21:19.679916Z",
+                "id": "CVE-2026-80754",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
             }
           ]
         },
@@ -211643,103 +211731,17 @@
         "id": "CVE-2026-15354",
         "sourceIdentifier": "security@wordfence.com",
         "published": "2026-09-04T07:17:08.487",
-        "lastModified": "2026-09-04T19:17:22.257",
-        "vulnStatus": "Deferred",
+        "lastModified": "2026-10-16T19:17:05.913",
+        "vulnStatus": "Rejected",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
-            "value": "The ACPT (Premium) plugin for WordPress is vulnerable to Privilege Escalation in all versions up to, and including, 2.0.66. This is due to missing authorization in the `submit()` function, which allows unauthenticated form submissions to control the target user ID before calling `wp_update_user()`. This makes it possible for unauthenticated attackers to overwrite any WordPress user's email address and password, including an administrator's, and take over the account. Successful exploitation requires a public ACPT user form that permits anonymous submissions."
+            "value": "Rejected reason: ** REJECT ** DO NOT USE THIS CANDIDATE NUMBER. ConsultIDs: CVE-2026-32566. Reason: This candidate is a reservation duplicate of CVE-2026-32566 Notes: All CVE users should reference CVE-2026-32566 instead of this candidate. All references and descriptions in this candidate have been removed to prevent accidental usage."
           }
         ],
-        "affected": [
-          {
-            "source": "security@wordfence.com",
-            "affectedData": [
-              {
-                "vendor": "Mauro Cassani",
-                "product": "ACPT (Premium)",
-                "defaultStatus": "unaffected",
-                "versions": [
-                  {
-                    "version": "0",
-                    "lessThanOrEqual": "2.0.66",
-                    "versionType": "semver",
-                    "status": "affected"
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        "metrics": {
-          "cvssMetricV31": [
-            {
-              "source": "security@wordfence.com",
-              "type": "Secondary",
-              "cvssData": {
-                "version": "3.1",
-                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-                "baseScore": 9.8,
-                "baseSeverity": "CRITICAL",
-                "attackVector": "NETWORK",
-                "attackComplexity": "LOW",
-                "privilegesRequired": "NONE",
-                "userInteraction": "NONE",
-                "scope": "UNCHANGED",
-                "confidentialityImpact": "HIGH",
-                "integrityImpact": "HIGH",
-                "availabilityImpact": "HIGH"
-              },
-              "exploitabilityScore": 3.9,
-              "impactScore": 5.9
-            }
-          ],
-          "ssvcV203": [
-            {
-              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-              "ssvcData": {
-                "timestamp": "2026-09-04T18:36:22.174605Z",
-                "id": "CVE-2026-15354",
-                "options": [
-                  {
-                    "exploitation": "none"
-                  },
-                  {
-                    "automatable": "yes"
-                  },
-                  {
-                    "technicalImpact": "total"
-                  }
-                ],
-                "role": "CISA Coordinator",
-                "version": "2.0.3"
-              }
-            }
-          ]
-        },
-        "weaknesses": [
-          {
-            "source": "security@wordfence.com",
-            "type": "Secondary",
-            "description": [
-              {
-                "lang": "en",
-                "value": "CWE-269"
-              }
-            ]
-          }
-        ],
-        "references": [
-          {
-            "url": "https://acpt.io/changelog/",
-            "source": "security@wordfence.com"
-          },
-          {
-            "url": "https://www.wordfence.com/threat-intel/vulnerabilities/id/abc138f5-0bb7-4ce3-a504-89580021bedb?source=cve",
-            "source": "security@wordfence.com"
-          }
-        ]
+        "metrics": {},
+        "references": []
       }
     },
     {
@@ -272481,7 +272483,7 @@
         "id": "CVE-2026-18745",
         "sourceIdentifier": "disclosure@vulncheck.com",
         "published": "2026-09-04T18:17:50.667",
-        "lastModified": "2026-10-15T20:10:00.197",
+        "lastModified": "2026-10-16T14:10:00.120",
         "vulnStatus": "Rejected",
         "cveTags": [],
         "descriptions": [
@@ -308152,7 +308154,7 @@
         "id": "CVE-2026-76160",
         "sourceIdentifier": "cve@gitlab.com",
         "published": "2026-09-05T23:17:41.177",
-        "lastModified": "2026-10-15T21:10:00.327",
+        "lastModified": "2026-10-16T15:10:00.103",
         "vulnStatus": "Rejected",
         "cveTags": [],
         "descriptions": [
@@ -308170,7 +308172,7 @@
         "id": "CVE-2026-76161",
         "sourceIdentifier": "cve@gitlab.com",
         "published": "2026-09-05T23:17:41.270",
-        "lastModified": "2026-10-15T21:10:00.327",
+        "lastModified": "2026-10-16T15:10:00.103",
         "vulnStatus": "Rejected",
         "cveTags": [],
         "descriptions": [
