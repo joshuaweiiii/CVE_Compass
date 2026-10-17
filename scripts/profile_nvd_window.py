@@ -27,7 +27,7 @@ for item in all_vulnerabilities:
         for configuration in cve["configurations"]:
             for node in configuration["nodes"]:
                 for cpe_match in node["cpeMatch"]:
-                    if cpe_match["vulnerable"]:
+                    if cpe_match["vulnerable"]: #specific product with bug not os or hardware
                         criteria_split = cpe_match["criteria"].split(":")
                         cve_products.add((criteria_split[3], criteria_split[4])) #(vendor, product)
         for pair in cve_products:
