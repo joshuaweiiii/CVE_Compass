@@ -8,10 +8,6 @@ This project demonstrates how a data engineer like me, collects, stores, cleans,
 
 This project demonstrates my experience with Python, advanced SQL, PySpark, Azure, data modeling, incremental processing, data quality, monitoring, CI/CD, and technical documentation. I use synthetic company asset and patch data so the project remains safe, legal, and fully shareable on GitHub.
 
-## Personal Documentation
-
-### Aug 14
-
 
 ### Sample snippet of NVD CVE data (10 CVE Recordings)
 
