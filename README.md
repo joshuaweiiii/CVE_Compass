@@ -175,3 +175,40 @@ Synthetic Patches Metadata:
 │ product / version   │                 └─────────────────┘
 └─────────────────────┘
 ```
+
+### NVD Week Profiling (Sept 1–7, 2026)
+
+Pulled every CVE published Sept 1–7, 2026 with `scripts/fetch_nvd_window.py` 
+
+Profiled with `scripts/profile_nvd_window.py`.
+
+| Check | CVEs | % of week |
+|---|---|---|
+| Total CVEs | 2,204 | 100% |
+| Have `configurations` (CPE strings) | 580 | 26% |
+| Have `cvssMetricV31` | 1,797 | 82% |
+| Have a Primary v3.1 score | 207 | 9% |
+
+Why so low: NVD has an analysis backlog. CPE `configurations` and most Primary scores are only added when an NVD analyst reviews a CVE (`vulnStatus` = Analyzed / Modified). Over half the week (1,136) is `Deferred`, meaning NVD does not plan to analyze it. Most v3.1 scores are Secondary, from the reporting org (vendor / CNA), not NVD.
+
+Top products by CVE count (only `vulnerable: true` entries, each product counted once per CVE):
+
+| Vendor | Product | CVEs |
+|---|---|---|
+| arubanetworks | fabric_composer | 52 |
+| google | chrome | 38 |
+| dell | secure_connect_gateway | 36 |
+| hpe | arubaos-cx | 34 |
+| mozilla | thunderbird | 31 |
+| nvidia | nemo_megatron_bridge | 30 |
+| mozilla | firefox | 26 |
+| elastic | kibana | 23 |
+| ibm | i | 22 |
+| misp-project | misp | 20 |
+
+Takeaways:
+- Counting every `cpeMatch` entry instead of once per CVE inflates products that list each version separately (Cisco IOS XR: 333 entries from only 3 CVEs).
+- `match_cve.py` must handle CVEs with no `configurations` and no Primary score before running on real weekly data.
+- `vulnerable: false` entries are platforms (e.g., Windows for a Chrome bug), not affected products, so they should not count as matches.
+- Version is often `*` in the CPE with the real range in `versionEndExcluding` / similar fields, so substring version matching won't work on real data.
+- Synthetic installed software should use real products from this list so matches actually happen.
