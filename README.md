@@ -15,7 +15,7 @@ This project demonstrates my experience with Python, advanced SQL, PySpark, Azur
 
 ### Sample snippet of NVD CVE data (10 CVE Recordings)
 
-__Useful Paths__
+__Useful Paths__ (Outdated)
 
 CVE_ID -> vulnerabilities[i].cve.id
 
@@ -210,4 +210,5 @@ Takeaways:
 - Counting every `cpeMatch` entry instead of once per CVE inflates products that list each version separately (Cisco IOS XR: 333 entries from only 3 CVEs).
 - `match_cve.py` must handle CVEs with no `configurations` and no Primary score before running on real weekly data.
 - `vulnerable: false` entries are platforms (e.g., Windows for a Chrome bug), not affected products, so they should not count as matches.
+- Version is often `*` in the CPE with the real range in `versionEndExcluding` / similar fields, so substring version matching won't work on real data.
 - Synthetic installed software should use real products from this list so matches actually happen.
