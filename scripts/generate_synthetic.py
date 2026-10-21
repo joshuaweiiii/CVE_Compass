@@ -7,6 +7,14 @@ random.seed(7)
 device_types = ["server", "laptop", "workstation", "virtual_machine"]
 departments = ["engineering", "finance", "hr", "sales", "marketing", "it"]
 criticality_levels = ["high", "medium", "low"]
+hostname_names = [
+    "naruto", "sasuke", "kakashi", "itachi",
+    "luffy", "zoro", "sanji", "nami", "gojo", "itadori",
+    "megumi", "tanjiro", "nezuko", "levi", "eren", "mikasa",
+    "light", "ryuk", "gon", "killua", "saitama", "genos",
+    "deku", "bakugo", "todoroki", "bernie", "josh", "jamie", "justin",
+    "matthew", "ethan", "darren", "hailey", "sophia", "eve", "serena", "michelle"
+    ]
 
 owners_by_department = {
     "engineering": ["platform-team", "backend-team", "frontend-team", "data-team"],
