@@ -41,7 +41,7 @@ for i in range(1, 501):
     criticality_level = random.choice(criticality_levels)
     internet_exposed = random.random() < 0.3
     asset_id = f"ASSET-{i:03d}"
-    hostname = f"{random.choice(hostname_names)}-{i:03d}"
+    hostname = f"{device}-{random.choice(hostname_names)}-{i:03d}"
     last_scan_time = "2026-10-01T12:00:00Z"
 
     asset_dict = {
@@ -58,5 +58,6 @@ for i in range(1, 501):
     all_assets.append(asset_dict)
 
 print(len(all_assets))
+print(json.dumps(all_assets[:2], indent=2))
 
 
