@@ -37,16 +37,16 @@ for i in range(1, 501):
     device = random.choice(device_types)
     operating_system = random.choice(os_by_device[device])
     department = random.choice(departments)
-    owner = random.choice(owners_by_department["department"])
+    owner = random.choice(owners_by_department[department])
     criticality_level = random.choice(criticality_levels)
     internet_exposed = random.random() < 0.3
-    asset_id = f"ASSET-:{i:003d}"
-    hostname = "hi"
+    asset_id = f"ASSET-{i:03d}"
+    hostname = f"{random.choice(hostname_names)}-{i:03d}"
     last_scan_time = "2026-10-01T12:00:00Z"
 
     asset_dict = {
       "asset_id": asset_id,
-      "hostname": "hi",
+      "hostname": hostname,
       "device_type": device,
       "operating_system": operating_system,
       "department": department,
@@ -55,6 +55,8 @@ for i in range(1, 501):
       "asset_owner": owner,
       "last_scan_timestamp": last_scan_time
     }
-    all_assets.append(all_assets)
+    all_assets.append(asset_dict)
+
+print(len(all_assets))
 
 
