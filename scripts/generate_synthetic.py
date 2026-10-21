@@ -36,4 +36,16 @@ for i in range(1, 501):
     hostname = "hi"
     last_scan_time = "2026-10-01T12:00:00Z"
 
-    
+    asset_dict = {
+      "asset_id": asset_id,
+      "hostname": "hi",
+      "device_type": device,
+      "operating_system": os,
+      "department": department,
+      "business_criticality": criticality_level,
+      "internet_exposed": internet_exposed,
+      "asset_owner": owner,
+      "last_scan_timestamp": last_scan_time
+    }
+
+
