@@ -36,7 +36,12 @@ internet_exposed_by_device = {
     "laptop": 0.02,
     "workstation": 0.02
 }
-
+criticality_level_by_device = {
+    "server": [60, 30, 10],
+    "virtual_machine": [40, 40, 20],
+    "laptop": [10, 40, 50],
+    "workstation": [20, 40, 40]
+}
 
 all_assets = []
 
