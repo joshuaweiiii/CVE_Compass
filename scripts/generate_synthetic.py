@@ -34,7 +34,7 @@ internet_exposed_by_device = {
     "server": 0.4,
     "virtual_machine": 0.25,
     "laptop": 0.02,
-    "workstation": random.random() < 0.02
+    "workstation": 0.02
 }
 
 
@@ -46,7 +46,7 @@ for i in range(1, 501):
     department = random.choice(departments)
     owner = random.choice(owners_by_department[department])
     criticality_level = random.choice(criticality_levels)
-    internet_exposed = internet_exposed_by_device[device]
+    internet_exposed = random.random() < internet_exposed_by_device[device]
     asset_id = f"ASSET-{i:03d}"
     hostname = f"{device}-{random.choice(hostname_names)}-{i:03d}"
     last_scan_time = "2026-10-01T12:00:00Z"
