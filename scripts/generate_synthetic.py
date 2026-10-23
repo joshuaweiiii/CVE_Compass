@@ -31,8 +31,8 @@ os_by_device = {
     "workstation": ["windows", "macos", "ubuntu"]
 }
 internet_exposed_by_device = {
-    "server": random.random() < 0.4,
-    "virtual_machine": random.random() < 0.25,
+    "server": 0.4,
+    "virtual_machine": 0.25,
     "laptop": random.random() < 0.02,
     "workstation": random.random() < 0.02
 }
