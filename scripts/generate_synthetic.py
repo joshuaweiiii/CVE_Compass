@@ -128,7 +128,7 @@ with OUTPUT_PATH.open("w") as f:
 print("assets generated:", len(all_assets))
 print("saved:", OUTPUT_PATH)
 
-SOFTWARE_PATH = Path("data/raw/synthetic/generated/installed_software500.json")
+SOFTWARE_PATH = Path("data/raw/synthetic/generated/installed_software1396.json")
 with SOFTWARE_PATH.open("w") as f:
     json.dump(all_software, f, indent=2)
 
