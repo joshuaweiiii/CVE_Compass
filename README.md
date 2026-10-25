@@ -134,7 +134,7 @@ python scripts/generate_synthetic.py
 python scripts/match_window.py
 ```
 
-The generated patch tickets are committed. To regenerate them, run `scripts/generate_synthetic_patches.py` after a match, then run `scripts/match_window.py` again.
+The generated patch tickets are committed. If the patch file is missing, `match_window.py` still runs and treats every exposure as `open`. To regenerate the tickets, run `scripts/generate_synthetic_patches.py` after a match, then run `scripts/match_window.py` again.
 
 ## Project Structure
 

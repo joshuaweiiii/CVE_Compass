@@ -67,8 +67,13 @@ with open(ASSETS_PATH) as f: #all assets
     assets = json.load(f)
 with open(SOFTWARE_PATH) as f: #all softwares
     software_rows = json.load(f)
-with open(PATCHES_PATH) as f: #all patches
-    patches = json.load(f)
+# Patch tickets are generated from a first match run, so they may not exist yet
+if Path(PATCHES_PATH).exists():
+    with open(PATCHES_PATH) as f: #all patches
+        patches = json.load(f)
+else:
+    print("no patch file found, treating every exposure as open")
+    patches = []
 
 assets_by_id = {asset["asset_id"]: asset for asset in assets}
 
