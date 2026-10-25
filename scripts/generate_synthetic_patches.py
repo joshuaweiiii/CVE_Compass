@@ -45,7 +45,14 @@ for exposure in unique_exposures:
     if chance >= 0.6: #keeps 60% of pairs for a patch status, 40% have no patch ticket and are just open
         continue
 
-    weights = status_weights_by_priority[exposure["priority"]]
+    # Urgency from the CVE + asset only, not exposure["priority"], which already reflects old patch tickets
+    is_urgent = (
+        exposure["base_severity"] == "CRITICAL"
+        and exposure["internet_exposed"] is True
+        and exposure["business_criticality"] == "high"
+    )
+    urgency = "patch_now" if is_urgent else "review"
+    weights = status_weights_by_priority[urgency]
     patch_status = random.choices(patch_statuses, weights=weights)[0]
     asset = assets_by_id[exposure["asset_id"]]
 

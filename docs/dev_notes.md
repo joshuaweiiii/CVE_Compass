@@ -252,7 +252,7 @@ Lesson learned: a probability like `random.random() < 0.4` must be rolled **insi
 
 - One ticket per `(asset_id, cve_id)`, not per exposure row. 18,056 exposures → 16,158 unique pairs. All 1,898 repeats were the same CVE hitting **Firefox and Thunderbird** on the same machine.
 - ~60% of pairs get a ticket (assumption). No ticket → matcher treats it as `open` (found by the scanner, but nobody has created a ticket yet).
-- Status weights `[patched, in_progress, open, accepted_risk]` by priority:
+- Status weights `[patched, in_progress, open, accepted_risk]` by urgency. Urgency is computed from severity + internet exposure + criticality, not from the exposure's `priority` field, because `priority` already includes old patch tickets (a `done` row crashed the generator on a rerun).
   - `patch_now`: `[60, 30, 10, 0]` — critical, exposed, important machines are never accepted risk
   - `review`: `[40, 20, 25, 15]`
 - `patched_timestamp` only on patched rows; `exception_reason` only on accepted-risk rows (pattern: set both to `None`, then overwrite inside `if`).
