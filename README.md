@@ -1,160 +1,60 @@
-# CVE_Compass Project README
+# CVE Compass
+
+**Match real NVD vulnerabilities to a company's machines and rank what to patch first.**
 
 ## Overview
 
-CVE Compass is an end-to-end Azure data engineering platform that identifies which publicly reported software vulnerabilities affect an organization’s computers, servers, and applications. 
+CVE Compass is a data engineering project that identifies which publicly reported software vulnerabilities (CVEs) affect an organization's computers, servers, and applications, then prioritizes which ones to fix first.
 
-This project demonstrates how a data engineer like me, collects, stores, cleans, matches, tests, and delivers complex cybersecurity data through a production-style cloud pipeline. It solves a realistic business problem by helping security teams decide which vulnerable systems should be patched first instead of treating every published vulnerability equally.
+Security teams receive thousands of new CVEs every week. Most don't affect their machines, and of the ones that do, only a few are truly urgent. CVE Compass pulls real vulnerability data from the National Vulnerability Database (NVD), matches it against a company's software inventory, joins asset and patch information, and ranks each exposure so the team can focus on what matters.
 
-This project demonstrates my experience with Python, advanced SQL, PySpark, Azure, data modeling, incremental processing, data quality, monitoring, CI/CD, and technical documentation. I use synthetic company asset and patch data so the project remains safe, legal, and fully shareable on GitHub.
+Company data (assets, installed software, patch tickets) is synthetic, so the project is safe, legal, and fully shareable. Vulnerability data is real.
 
+The local Python pipeline is complete. Next phases rebuild it in PySpark, Databricks (Bronze / Silver / Gold), and Azure (see [Roadmap](#roadmap)).
 
-### Sample snippet of NVD CVE data (10 CVE Recordings)
+## Results (current local pipeline)
 
-__Useful Paths__ (Outdated)
+One week of real CVEs (published Sept 1–7, 2026) matched against a synthetic 500-machine company:
 
-CVE_ID -> vulnerabilities[i].cve.id
+| Metric | Value |
+|---|---|
+| CVEs pulled from NVD | 2,204 |
+| CVEs matchable (have CPE product data) | 580 (26%) |
+| Synthetic assets / installed software rows | 500 / 1,396 |
+| Exposures found (asset + CVE + product) | 18,056 |
+| Assets with at least one exposure | 470 of 500 |
+| Patch tickets (synthetic) | 9,773 |
 
-Description -> vulnerabilities[i].cve.descriptions[0].value
+Priority breakdown:
 
-Severity -> vulnerabilities[i].cve.metrics.cvssMetricV2[0].baseSeverity 
+| Priority | Exposures | Meaning |
+|---|---|---|
+| `patch_now` | 37 | Open, CRITICAL severity, internet-exposed, high-criticality asset |
+| `review` | 13,642 | Still needs attention, but not urgent |
+| `done` | 4,377 | Already patched |
 
-Affected Product (CPE) -> vulnerabilities[i].cve.configurations[0].nodes[0].cpeMatch[0].criteria
+Out of 18,056 exposures, the security team gets a short list of **37** to fix immediately.
 
-    CPE Format -> cpe : spec version : which part : vendor : product : product version : others
+## Pipeline
 
-Note: cvssMetricV2 is mostly 1990s. Newer ones are V3 or V4
-
-
-### Design Snippet of Synthetic Installed Softwares
-
-Created synthetic softwares that have (`vendor` / `product` / `product version`), which matches to NVD criteria (`Affected Product`)
-
-```json
-[
-  {
-    "asset_id": "ASSET-001", 
-    "software_vendor": "openssl",
-    "software_name": "openssl",
-    "installed_version": "1.0.2",
-    "last_observed_timestamp": "2026-08-01T12:00:00Z"
-  },
-  {
-    "asset_id": "ASSET-001",
-    "software_vendor": "apache",
-    "software_name": "http_server",
-    "installed_version": "2.4.49",
-    "last_observed_timestamp": "2026-08-01T12:00:00Z"
-  },
-  {
-    "asset_id": "ASSET-002",
-    "software_vendor": "google",
-    "software_name": "chrome",
-    "installed_version": "126.0.6478.126",
-    "last_observed_timestamp": "2026-08-02T09:30:00Z"
-  }
-]
+```text
+fetch_nvd_window.py ──► profile_nvd_window.py
+        │
+        ▼
+generate_synthetic.py ──► match_window.py ──► generate_synthetic_patches.py ──► match_window.py
+(assets + software)        (exposures)          (patch tickets)                  (final exposures
+                                                                                   with patch status)
 ```
-Synthetic Softwares Metadata: 
-- `asset_id` — which machine has this software
-- `software_vendor` — maps to CPE vendor 
-- `software_name` — maps to CPE product
-- `installed_version` — maps to CPE version
-- `last_observed_timestamp` — most recent software inventory scan
 
+| Script | What it does | Output |
+|---|---|---|
+| `scripts/fetch_nvd_window.py` | Pulls every CVE published in a date window from the NVD API 2.0, paginating 2,000 at a time | `data/raw/nvd/window_page_*.json` |
+| `scripts/profile_nvd_window.py` | Profiles the pull: coverage counts and top affected products | printed summary |
+| `scripts/generate_synthetic.py` | Generates 500 assets and their installed software (seeded, reproducible) | `data/raw/synthetic/generated/assets500.json`, `installed_software1396.json` |
+| `scripts/match_window.py` | Matches CVE products and version ranges to installed software, joins assets and patches, assigns priority | `data/processed/exposures_window.json` |
+| `scripts/generate_synthetic_patches.py` | Generates patch tickets for ~60% of asset + CVE pairs, weighted by priority | `data/raw/synthetic/generated/patches_records9773.json` |
 
-### Design Snippet of Synthetic Asset Inventory
-
-Created synthetic assets (machines), one row per machine. `asset_id` matches synthetic installed softwares (one asset -> many softwares)
-
-```json
-[
-  {
-    "asset_id": "ASSET-001",
-    "hostname": "web-prod-01",
-    "device_type": "server",
-    "operating_system": "ubuntu",
-    "department": "engineering",
-    "business_criticality": "high",
-    "internet_exposed": true,
-    "asset_owner": "platform-team",
-    "last_scan_timestamp": "2026-08-01T12:00:00Z"
-  },
-  {
-    "asset_id": "ASSET-002",
-    "hostname": "laptop-jwei",
-    "device_type": "laptop",
-    "operating_system": "macos",
-    "department": "engineering",
-    "business_criticality": "medium",
-    "internet_exposed": false,
-    "asset_owner": "joshua",
-    "last_scan_timestamp": "2026-08-02T09:30:00Z"
-  }
-]
-```
-Synthetic Assets Metadata:
-- `asset_id` — unique machine ID
-- `hostname` — human readable name 
-- `device_type` — server / laptop / workstation / etc.
-- `operating_system` — what OS machine is using
-- `department` — department who owns asset
-- `business_criticality` — how important asset is for business (high / medium / low)
-- `internet_exposed` — true if machine can be reached from internet
-- `asset_owner` — person responsible for asset
-- `last_scan_timestamp` — most recent full asset scan
-
-
-### Design Snippet of Synthetic Patch Management
-
-Created synthetic patch tracker. Tracks if specific CVE on specific asset has been fixed. Join keys: `asset_id` and `cve_id`.
-
-```json
-[
-  {
-    "asset_id": "ASSET-001",
-    "cve_id": "CVE-2021-44228",
-    "first_detected_timestamp": "2026-07-15T08:00:00Z",
-    "patch_available": true,
-    "patch_status": "patched",
-    "patched_timestamp": "2026-07-20T16:30:00Z",
-    "remediation_owner": "platform-team",
-    "exception_reason": null
-  },
-  {
-    "asset_id": "ASSET-001",
-    "cve_id": "CVE-2021-41773",
-    "first_detected_timestamp": "2026-08-01T12:00:00Z",
-    "patch_available": true,
-    "patch_status": "open",
-    "patched_timestamp": null,
-    "remediation_owner": "platform-team",
-    "exception_reason": null
-  },
-  {
-    "asset_id": "ASSET-002",
-    "cve_id": "CVE-2024-0519",
-    "first_detected_timestamp": "2026-07-28T10:00:00Z",
-    "patch_available": true,
-    "patch_status": "accepted_risk",
-    "patched_timestamp": null,
-    "remediation_owner": "joshua",
-    "exception_reason": "legacy browser plugin; scheduled rebuild next quarter"
-  }
-]
-```
-Synthetic Patches Metadata:
-- `asset_id` — which machine with problem
-- `cve_id` — unique vulnerability ID
-- `first_detected_timestamp` — time when asset was flagged for corresponding CVE
-- `patch_available` — true if fix possible/created
-- `patch_status` — `open` / `in_progress` / `patched` / `accepted_risk`
-- `patched_timestamp` — when it was fixed (`null` if not fixed)
-- `remediation_owner` — who assigned to fix it
-- `exception_reason` — why `patch_status` = `accepted_risk` (otherwise `null`)
-
-
-### Data Model
+## Data Model
 
 ```text
 ┌─────────────┐         cve_id          ┌─────────────────┐
@@ -162,8 +62,8 @@ Synthetic Patches Metadata:
 │  (CVEs)     │                         │ asset_id+cve_id │
 └──────┬──────┘                         └────────┬────────┘
        │                                         │
-       │ match on                                │ asset_id
-       │ vendor / product / version              │
+       │ match on vendor / product               │ asset_id
+       │ + version range                         │
        │                                         ▼
 ┌──────▼──────────────┐                 ┌─────────────────┐
 │ Installed software  │──── asset_id ───│     Assets      │
@@ -172,39 +72,71 @@ Synthetic Patches Metadata:
 └─────────────────────┘
 ```
 
-### NVD Week Profiling (Sept 1–7, 2026)
+- **NVD → Installed software:** a CVE's `vulnerable: true` CPE entries are matched on vendor + product, then the installed version is checked against the exact version or `versionStart*` / `versionEnd*` range.
+- **Installed software → Assets:** `asset_id` adds hostname, device type, business criticality, and internet exposure.
+- **Exposure → Patch records:** `(asset_id, cve_id)` adds patch status. No ticket means `open`.
 
-Pulled every CVE published Sept 1–7, 2026 with `scripts/fetch_nvd_window.py` 
+## Data Sources
 
-Profiled with `scripts/profile_nvd_window.py`.
+**NVD CVE API 2.0 (real).** `https://services.nvd.nist.gov/rest/json/cves/2.0`. A free API key raises the rate limit from 5 to 50 requests per 30 seconds. The key is read from the `NVD_API_KEY` environment variable and never committed.
 
-| Check | CVEs | % of week |
-|---|---|---|
-| Total CVEs | 2,204 | 100% |
-| Have `configurations` (CPE strings) | 580 | 26% |
-| Have `cvssMetricV31` | 1,797 | 82% |
-| Have a Primary v3.1 score | 207 | 9% |
+**Synthetic company data (generated).** Seeded with `random.seed`, so every run produces identical files.
 
-Why so low: NVD has an analysis backlog. CPE `configurations` and most Primary scores are only added when an NVD analyst reviews a CVE (`vulnStatus` = Analyzed / Modified). Over half the week (1,136) is `Deferred`, meaning NVD does not plan to analyze it. Most v3.1 scores are Secondary, from the reporting org (vendor / CNA), not NVD.
+- **Assets (500):** device type, OS, department, owner team, business criticality, internet exposure. Realism rules: servers are more often high criticality and internet-exposed; servers and VMs belong only to engineering or IT.
+- **Installed software (1,396 rows):** 2–4 apps per server/VM, 2–3 per laptop/workstation, chosen from real products in the week's CVE data (Chrome, Firefox, Thunderbird, Kibana, Jenkins, n8n, curl, undici). Each product has vulnerable and patched versions.
+- **Patch tickets (9,773):** ~60% of asset + CVE pairs get a ticket (assumption). Status weights depend on priority; `patch_now` exposures are never `accepted_risk`.
 
-Top products by CVE count (only `vulnerable: true` entries, each product counted once per CVE):
+## Key Findings and Limitations
 
-| Vendor | Product | CVEs |
-|---|---|---|
-| arubanetworks | fabric_composer | 52 |
-| google | chrome | 38 |
-| dell | secure_connect_gateway | 36 |
-| hpe | arubaos-cx | 34 |
-| mozilla | thunderbird | 31 |
-| nvidia | nemo_megatron_bridge | 30 |
-| mozilla | firefox | 26 |
-| elastic | kibana | 23 |
-| ibm | i | 22 |
-| misp-project | misp | 20 |
+- **Only 26% of new CVEs are matchable.** NVD adds CPE product data only after analyst review; over half the week was `Deferred` (NVD does not plan to analyze it). Unmatched CVEs can't be tied to software by CPE.
+- **Most severity scores come from vendors, not NVD.** The matcher uses NVD's Primary CVSS v3.1 score when available and falls back to the vendor/CNA Secondary score, recorded in `score_source`.
+- **Products are counted once per CVE.** Some CVEs list every affected version separately (e.g., Cisco IOS XR: 333 entries from only 3 CVEs).
+- **Platform conditions are ignored.** A Chrome CVE that only affects Chrome on Windows also matches Chrome on macOS. Handling CPE AND/OR logic is a future improvement.
+- **Numeric versions only.** Versions with letters (e.g., OpenSSL `1.0.2k`) are not supported yet.
+- **Synthetic percentages are assumptions**, not real-world statistics.
 
-Takeaways:
-- Counting every `cpeMatch` entry instead of once per CVE inflates products that list each version separately (Cisco IOS XR: 333 entries from only 3 CVEs).
-- `match_cve.py` must handle CVEs with no `configurations` and no Primary score before running on real weekly data.
-- `vulnerable: false` entries are platforms (e.g., Windows for a Chrome bug), not affected products, so they should not count as matches.
-- Version is often `*` in the CPE with the real range in `versionEndExcluding` / similar fields, so substring version matching won't work on real data.
-- Synthetic installed software should use real products from this list so matches actually happen.
+## How to Run
+
+```bash
+# 1. Set up
+python3 -m venv .venv
+source .venv/bin/activate
+pip install requests
+
+# 2. Add your NVD API key (https://nvd.nist.gov/developers/request-an-api-key)
+export NVD_API_KEY="your-key-here"
+
+# 3. Pull and profile one week of CVEs
+python scripts/fetch_nvd_window.py
+python scripts/profile_nvd_window.py
+
+# 4. Generate synthetic assets and software
+python scripts/generate_synthetic.py
+
+# 5. Match (uses the committed patch tickets)
+python scripts/match_window.py
+```
+
+The generated patch tickets are committed. To regenerate them, run `scripts/generate_synthetic_patches.py` after a match, then run `scripts/match_window.py` again.
+
+## Project Structure
+
+```text
+cve_compass/
+├── scripts/                     # current pipeline (5 scripts above)
+├── data/
+│   ├── raw/nvd/                 # NVD pulls (not committed; re-create with fetch script)
+│   ├── raw/synthetic/generated/ # generated assets, software, patch tickets
+│   └── processed/               # exposures output (not committed)
+├── prototype/                   # early versions: first API call, substring matcher, hand-written samples
+└── docs/dev_notes.md            # development notes and learning log
+```
+
+## Roadmap
+
+- [x] Local Python pipeline: NVD pull, profiling, synthetic data, version-range matching, prioritization
+- [ ] PySpark: rebuild flattening and joins as DataFrames
+- [ ] Databricks: Bronze / Silver / Gold Delta tables
+- [ ] Azure: Data Factory ingestion, ADLS storage, Azure SQL serving layer
+- [ ] Power BI: exposure and priority dashboard
+- [ ] Data quality checks, monitoring, and CI/CD
