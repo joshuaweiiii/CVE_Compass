@@ -1,6 +1,8 @@
 import random
 import json
+from collections import Counter
 from pathlib import Path
+
 
 random.seed(7)
 
@@ -54,7 +56,7 @@ for i in range(1, 501):
     else:
         department = random.choice(departments)
     owner = random.choice(owners_by_department[department])
-    criticality_level = random.choices(criticality_levels, weights=criticality_level_by_device[device][0])
+    criticality_level = random.choices(criticality_levels, weights=criticality_level_by_device[device])[0]
     internet_exposed = random.random() < internet_exposed_by_device[device]
     asset_id = f"ASSET-{i:03d}"
     hostname = f"{device}-{random.choice(hostname_names)}-{i:03d}"
@@ -73,7 +75,12 @@ for i in range(1, 501):
     }
     all_assets.append(asset_dict)
 
-print(len(all_assets))
-print(json.dumps(all_assets[:2], indent=2))
+OUTPUT_PATH = Path("data/raw/synthetic/generated/assets.json")
+OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+with OUTPUT_PATH.open("w") as f:
+    json.dump(all_assets, f, indent=2)
+
+print("assets generated:", len(all_assets))
+print("saved:", OUTPUT_PATH)
 
 
