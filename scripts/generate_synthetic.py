@@ -75,7 +75,7 @@ for i in range(1, 501):
     }
     all_assets.append(asset_dict)
 
-OUTPUT_PATH = Path("data/raw/synthetic/generated/assets.json")
+OUTPUT_PATH = Path("data/raw/synthetic/generated/assets500.json")
 OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
 with OUTPUT_PATH.open("w") as f:
     json.dump(all_assets, f, indent=2)
