@@ -72,7 +72,7 @@ generate_synthetic.py ──► match_window.py ──► generate_synthetic_pat
 └─────────────────────┘
 ```
 
-- **NVD → Installed software:** a CVE's `vulnerable: true` CPE entries are matched on vendor + product, then the installed version is checked against the exact version or `versionStart*` / `versionEnd*` range.
+- **NVD → Installed software:** a CVE's `vulnerable: true` CPE entries are matched on vendor + product, then the installed version is checked against the exact version or `versionStart`* / `versionEnd*` range.
 - **Installed software → Assets:** `asset_id` adds hostname, device type, business criticality, and internet exposure.
 - **Exposure → Patch records:** `(asset_id, cve_id)` adds patch status. No ticket means `open`.
 
@@ -82,9 +82,12 @@ generate_synthetic.py ──► match_window.py ──► generate_synthetic_pat
 
 **Synthetic company data (generated).** Seeded with `random.seed`, so every run produces identical files.
 
-- **Assets (500):** device type, OS, department, owner team, business criticality, internet exposure. Realism rules: servers are more often high criticality and internet-exposed; servers and VMs belong only to engineering or IT.
-- **Installed software (1,396 rows):** 2–4 apps per server/VM, 2–3 per laptop/workstation, chosen from real products in the week's CVE data (Chrome, Firefox, Thunderbird, Kibana, Jenkins, n8n, curl, undici). Each product has vulnerable and patched versions.
-- **Patch tickets (9,773):** ~60% of asset + CVE pairs get a ticket (assumption). Status weights depend on priority; `patch_now` exposures are never `accepted_risk`.
+- **Assets (500):** device type, OS, department, owner team, business criticality, internet exposure. 
+  - Realism rules: servers are more often high criticality and internet-exposed; servers and VMs belong only to engineering or IT.
+- **Installed software (1,396 rows):** 2–4 apps per server/VM, 2–3 per laptop/workstation, chosen from real products in the week's CVE data (Chrome, Firefox, Thunderbird, Kibana, Jenkins, n8n, curl, undici). 
+  - Realism rules: Each product has vulnerable and patched versions.
+- **Patch tickets (9,773):** ~60% of asset + CVE pairs get a ticket (assumption). 
+  - Realism rules: Status weights depend on priority; `patch_now` exposures are never `accepted_risk`.
 
 ## Key Findings and Limitations
 
