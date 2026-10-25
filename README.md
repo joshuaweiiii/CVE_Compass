@@ -118,7 +118,7 @@ generate_synthetic.py ──► match_window.py ──► generate_synthetic_pat
 # 1. Set up
 python3 -m venv .venv
 source .venv/bin/activate
-pip install requests
+pip install -r requirements.txt
 
 # 2. Add your NVD API key (https://nvd.nist.gov/developers/request-an-api-key)
 export NVD_API_KEY="your-key-here"
@@ -146,7 +146,8 @@ cve_compass/
 │   ├── raw/synthetic/generated/ # generated assets, software, patch tickets
 │   └── processed/               # exposures output (not committed)
 ├── prototype/                   # early versions: first API call, substring matcher, hand-written samples
-└── docs/dev_notes.md            # development notes and learning log
+├── docs/dev_notes.md            # development notes and learning log
+└── requirements.txt             # Python dependencies
 ```
 
 ## Roadmap
