@@ -2,6 +2,8 @@
 
 **Match real NVD vulnerabilities to a company's machines and rank what to patch first.**
 
+Development notes and learning log: [`docs/dev_notes.md`](docs/dev_notes.md)
+
 ## Table of Contents
 
 - [Overview](#overview)
