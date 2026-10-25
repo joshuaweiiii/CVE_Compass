@@ -7,6 +7,7 @@ WINDOW_PAGES = [
 ]
 ASSETS_PATH = "data/raw/synthetic/generated/assets500.json"
 SOFTWARE_PATH = "data/raw/synthetic/generated/installed_software1396.json"
+PATCHES_PATH = "data/raw/synthetic/generated/patches_records9773.json"
 
 OUTPUT_PATH = Path("data/processed/exposures_window.json")
 
@@ -66,8 +67,14 @@ with open(ASSETS_PATH) as f: #all assets
     assets = json.load(f)
 with open(SOFTWARE_PATH) as f: #all softwares
     software_rows = json.load(f)
+with open(PATCHES_PATH) as f: #all patches
+    patches = json.load(f)
 
 assets_by_id = {asset["asset_id"]: asset for asset in assets}
+
+patches_by_id = {}
+for patch in patches:
+    patches_by_id[(patch["asset_id"], patch["cve_id"])] = patch
 
 # (vendor, product) -> every installed row of that product, so each CPE only checks relevant software
 software_by_product = {}
@@ -110,8 +117,11 @@ for item in all_vulnerabilities:
                     seen.add(key)
 
                     asset = assets_by_id[software["asset_id"]]
-                    patch_status = "open"  # no generated patch records yet
-
+                    patch = patches_by_id.get((software["asset_id"], cve_id)) #pull patches
+                    if patch is None:
+                        patch_status = "open"
+                    else:
+                        patch_status = patch["patch_status"]
                     if patch_status == "patched":
                         priority = "done"
                     elif (

@@ -68,7 +68,7 @@ for exposure in unique_exposures:
     }
     all_patches.append(patch_dict)
 
-OUTPUT_PATH = Path("data/raw/synthetic/generated/patche_records9773.json")
+OUTPUT_PATH = Path("data/raw/synthetic/generated/patches_records9773.json")
 with OUTPUT_PATH.open("w") as f:
     json.dump(all_patches, f, indent=2)
 
