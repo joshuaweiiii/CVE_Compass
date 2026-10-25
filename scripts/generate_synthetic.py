@@ -6,6 +6,7 @@ random.seed(7)
 
 device_types = ["server", "laptop", "workstation", "virtual_machine"]
 departments = ["engineering", "finance", "hr", "sales", "marketing", "it"]
+technical_departments = ["engineering", "it"]
 criticality_levels = ["high", "medium", "low"]
 hostname_names = [
     "naruto", "sasuke", "kakashi", "itachi",
@@ -48,7 +49,10 @@ all_assets = []
 for i in range(1, 501):
     device = random.choice(device_types)
     operating_system = random.choice(os_by_device[device])
-    department = random.choice(departments)
+    if device in ["server", "virtual_machine"]:
+        department = random.choice(technical_departments)
+    else:
+        department = random.choice(departments)
     owner = random.choice(owners_by_department[department])
     criticality_level = random.choice(criticality_levels)
     internet_exposed = random.random() < internet_exposed_by_device[device]
