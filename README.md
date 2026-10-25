@@ -2,6 +2,18 @@
 
 **Match real NVD vulnerabilities to a company's machines and rank what to patch first.**
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Results](#results-current-local-pipeline)
+- [Pipeline](#pipeline)
+- [Data Model](#data-model)
+- [Data Sources](#data-sources)
+- [Key Findings and Limitations](#key-findings-and-limitations)
+- [How to Run](#how-to-run)
+- [Project Structure](#project-structure)
+- [Roadmap](#roadmap)
+
 ## Overview
 
 CVE Compass is a data engineering project that identifies which publicly reported software vulnerabilities (CVEs) affect an organization's computers, servers, and applications, then prioritizes which ones to fix first.
