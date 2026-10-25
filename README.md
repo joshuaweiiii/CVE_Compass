@@ -65,7 +65,7 @@ generate_synthetic.py ──► match_window.py ──► generate_synthetic_pat
 | `scripts/fetch_nvd_window.py` | Pulls every CVE published in a date window from the NVD API 2.0, paginating 2,000 at a time | `data/raw/nvd/window_page_*.json` |
 | `scripts/profile_nvd_window.py` | Profiles the pull: coverage counts and top affected products | printed summary |
 | `scripts/generate_synthetic.py` | Generates 500 assets and their installed software (seeded, reproducible) | `data/raw/synthetic/generated/assets500.json`, `installed_software1396.json` |
-| `scripts/match_window.py` | Matches CVE products and version ranges to installed software, joins assets and patches, assigns priority | `data/processed/exposures_window.json` |
+| `scripts/match_window.py` | Matches CVE products and version ranges to installed software, joins assets and patches (all `open` if no patch file yet), assigns priority | `data/processed/exposures_window.json` |
 | `scripts/generate_synthetic_patches.py` | Generates patch tickets for ~60% of asset + CVE pairs, weighted by priority | `data/raw/synthetic/generated/patches_records9773.json` |
 
 ## Data Model
@@ -86,7 +86,7 @@ generate_synthetic.py ──► match_window.py ──► generate_synthetic_pat
 └─────────────────────┘
 ```
 
-- **NVD → Installed software:** a CVE's `vulnerable: true` CPE entries are matched on vendor + product, then the installed version is checked against the exact version or `versionStart`* / `versionEnd*` range.
+- **NVD → Installed software:** a CVE's `vulnerable: true` CPE entries are matched on vendor + product, then the installed version is checked against the exact version or `versionStart*` / `versionEnd*` range.
 - **Installed software → Assets:** `asset_id` adds hostname, device type, business criticality, and internet exposure.
 - **Exposure → Patch records:** `(asset_id, cve_id)` adds patch status. No ticket means `open`.
 
@@ -130,11 +130,17 @@ python scripts/profile_nvd_window.py
 # 4. Generate synthetic assets and software
 python scripts/generate_synthetic.py
 
-# 5. Match (uses the committed patch tickets)
+# 5. First match (if no patch file exists yet, every exposure is treated as open)
+python scripts/match_window.py
+
+# 6. Generate patch tickets from those exposures
+python scripts/generate_synthetic_patches.py
+
+# 7. Final match, now joined with patch status
 python scripts/match_window.py
 ```
 
-The generated patch tickets are committed. If the patch file is missing, `match_window.py` still runs and treats every exposure as `open`. To regenerate the tickets, run `scripts/generate_synthetic_patches.py` after a match, then run `scripts/match_window.py` again.
+The generated patch tickets are already committed, so steps 5–6 are optional. Running step 7 alone uses the committed tickets.
 
 ## Project Structure
 
