@@ -219,3 +219,6 @@ __marimo__/
 
 # Raw NVD bulk pulls (re-create with scripts/fetch_nvd_window.py)
 data/raw/nvd/window_page_*.json
+
+#All Exposures
+data/processed/exposures_window.json
