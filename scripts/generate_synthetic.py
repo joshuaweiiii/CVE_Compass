@@ -54,7 +54,7 @@ for i in range(1, 501):
     else:
         department = random.choice(departments)
     owner = random.choice(owners_by_department[department])
-    criticality_level = random.choice(criticality_levels)
+    criticality_level = random.choices(criticality_levels, weights=criticality_level_by_device[device][0])
     internet_exposed = random.random() < internet_exposed_by_device[device]
     asset_id = f"ASSET-{i:03d}"
     hostname = f"{device}-{random.choice(hostname_names)}-{i:03d}"
