@@ -106,7 +106,7 @@ for i in range(1, 501):
             catalog = desktop_software
 
         min_apps, max_apps = apps_per_device[device]
-        how_many = random.randint(min_apps, max_apps)
+        how_many = random.randint(min_apps, max_apps) #how many products for one asset
         picked = random.sample(catalog, how_many)
 
         for vendor, product, versions in picked:
