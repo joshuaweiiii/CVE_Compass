@@ -127,6 +127,7 @@ for item in all_vulnerabilities:
                         patch_status = "open"
                     else:
                         patch_status = patch["patch_status"]
+                    #priority
                     if patch_status == "patched":
                         priority = "done"
                     elif (
