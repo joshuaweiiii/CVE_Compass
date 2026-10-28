@@ -42,6 +42,26 @@ cpe_matches_df = nodes_df.select(
     explode("node.cpeMatch").alias("cpe_match"),
 )
 print("cpe matches:", cpe_matches_df.count())
-cpe_matches_df.select("cve_id", "cpe_match.criteria", "cpe_match.vulnerable").show(5, truncate=False)
+
+#pulls only vulnerable (product not platform thats broken)
+vulnerable_df = cpe_matches_df.filter(
+    (col("cpe_match.vulnerable") == True) & (col("vuln_status") != "Rejected"))
+
+print("vulnerable:", vulnerable_df.count())
+
+#cpe_match nested column into flat table with vendor, product, and version
+parts = split(col("cpe_match.criteria"), ":")
+cve_products_df = vulnerable_df.select(
+    "cve_id",
+    parts[3].alias("vendor"),
+    parts[4].alias("product"),
+    parts[5].alias("cpe_version"),
+    "cpe_match.versionStartIncluding", #all broken from this up
+    "cpe_match.versionEndIncluding", #all broken up to this
+    "cpe_match.versionEndExcluding" #first fixed one
+)
+print("cve_products:", cve_products_df.count())
+cve_products_df.show(5, truncate=False)
+print("unique_cves:", cve_products_df.select("cve_id").distinct().count())
 
 spark.stop()
