@@ -1,5 +1,4 @@
 from pyspark.sql import SparkSession
-from requests import patch
 
 spark = (
     SparkSession.builder
