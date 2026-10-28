@@ -7,6 +7,11 @@ spark = (
     .getOrCreate() #creates spark session
 )
 
-assets = spark.read.json("data/raw/synthetic/generated/assets500.json")
-softwares = spark.read.json("data/raw/synthetic/generated/installed_software1396.json")
-patches = spark.read.json("data/raw/synthetic/generated/patches_records9773.json")
+#JSON dict to Spark DF
+assets_df = spark.read.option("multiLine", True).json("data/raw/synthetic/generated/assets500.json")
+softwares_df = spark.read.option("multiLine", True).json("data/raw/synthetic/generated/installed_software1396.json")
+patches_df = spark.read.option("multiLine", True).json("data/raw/synthetic/generated/patches_records9773.json")
+
+assets_df.printSchema()
+softwares_df.printSchema()
+patches_df.printSchema()
