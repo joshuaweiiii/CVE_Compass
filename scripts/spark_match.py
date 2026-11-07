@@ -1,5 +1,11 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, explode, split
+from pyspark.sql.functions import col, explode, split, transform
+
+
+def version_array(column_name):
+    """Turn "8.22.0" into [8, 22, 0] so versions compare as numbers, not text."""
+    return transform(split(col(column_name), r"\."), lambda part: part.cast("int"))
+
 
 spark = (
     SparkSession.builder
@@ -78,5 +84,29 @@ candidates_df.select(
     "cve_id", "asset_id", "product", "installed_version",
     "versionStartIncluding", "versionEndIncluding", "versionEndExcluding",
 ).show(5, truncate=False)
+
+#version check: keep only candidates whose installed version is actually vulnerable
+installed = version_array("installed_version")
+
+#a NULL range field means no limit on that side
+in_range = (
+    (col("versionStartIncluding").isNull() | (installed >= version_array("versionStartIncluding")))
+    & (col("versionEndIncluding").isNull() | (installed <= version_array("versionEndIncluding")))
+    & (col("versionEndExcluding").isNull() | (installed < version_array("versionEndExcluding")))
+)
+
+#a specific version in the CPE string means only that exact version is vulnerable
+is_exact = ~col("cpe_version").isin("*", "-")
+
+vulnerable_matches_df = candidates_df.filter(
+    (is_exact & (col("installed_version") == col("cpe_version")))
+    | (~is_exact & in_range)
+)
+print("vulnerable_matches:", vulnerable_matches_df.count())
+
+#one CVE can list overlapping ranges for the same product, so keep one row per machine + CVE + product
+exposures_df = vulnerable_matches_df.dropDuplicates(["asset_id", "cve_id", "vendor", "product"])
+print("exposures:", exposures_df.count())
+print("assets_affected:", exposures_df.select("asset_id").distinct().count())
 
 spark.stop()
