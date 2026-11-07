@@ -64,4 +64,19 @@ print("cve_products:", cve_products_df.count())
 cve_products_df.show(5, truncate=False)
 print("unique_cves:", cve_products_df.select("cve_id").distinct().count())
 
+#pair each CVE product with every machine that has that product installed (no version control yet)
+candidates_df = cve_products_df.join(
+    softwares_df,
+    (cve_products_df.vendor == softwares_df.software_vendor)
+    & (cve_products_df.product == softwares_df.software_name),
+    "inner",
+)
+print("candidates:", candidates_df.count())
+print("candidate_assets:", candidates_df.select("asset_id").distinct().count())
+print("candidate_cves:", candidates_df.select("cve_id").distinct().count())
+candidates_df.select(
+    "cve_id", "asset_id", "product", "installed_version",
+    "versionStartIncluding", "versionEndIncluding", "versionEndExcluding",
+).show(5, truncate=False)
+
 spark.stop()
