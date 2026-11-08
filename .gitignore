@@ -222,3 +222,4 @@ data/raw/nvd/window_page_*.json
 
 #All Exposures
 data/processed/exposures_window.json
+data/processed/exposures_spark/

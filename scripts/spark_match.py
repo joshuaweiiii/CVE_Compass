@@ -1,5 +1,17 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, explode, split, transform
+from pyspark.sql.functions import (
+    coalesce,
+    col,
+    explode,
+    filter as filter_array,
+    lit,
+    split,
+    transform,
+    try_element_at,
+    when,
+)
+
+OUTPUT_PATH = "data/processed/exposures_spark"
 
 
 def version_array(column_name):
@@ -108,5 +120,69 @@ print("vulnerable_matches:", vulnerable_matches_df.count())
 exposures_df = vulnerable_matches_df.dropDuplicates(["asset_id", "cve_id", "vendor", "product"])
 print("exposures:", exposures_df.count())
 print("assets_affected:", exposures_df.select("asset_id").distinct().count())
+
+#CVSS v3.1 score per CVE: Primary (NVD) first, else Secondary (vendor/CNA)
+cvss_v31 = col("vuln.cve.metrics.cvssMetricV31")
+primary = try_element_at(filter_array(cvss_v31, lambda m: m.type == "Primary"), lit(1))
+secondary = try_element_at(filter_array(cvss_v31, lambda m: m.type == "Secondary"), lit(1))
+chosen_metric = coalesce(primary, secondary) #use secondary, if no primary
+
+cve_scores_df = vulns_df.select(
+    col("vuln.cve.id").alias("cve_id"),
+    chosen_metric.cvssData.baseScore.alias("base_score"),
+    chosen_metric.cvssData.baseSeverity.alias("base_severity"),
+    chosen_metric.type.alias("score_source"),
+)
+
+#add CVSS score, then asset details (hostname, exposure, criticality)
+enriched_df = (
+    exposures_df
+    .join(cve_scores_df, "cve_id", "left")
+    .join(assets_df, "asset_id", "inner")
+)
+
+#left join keeps exposures with no patch ticket; those are open
+enriched_df = (
+    enriched_df
+    .join(patches_df, ["asset_id", "cve_id"], "left")
+    .withColumn("patch_status", coalesce(col("patch_status"), lit("open")))
+)
+
+prioritized_df = enriched_df.withColumn(
+    "priority",
+    when(col("patch_status") == "patched", "done")
+    .when(
+        (col("patch_status") == "open")
+        & (col("base_severity") == "CRITICAL")
+        & (col("internet_exposed") == True)
+        & (col("business_criticality") == "high"),
+        "patch_now",
+    )
+    .otherwise("review"),
+)
+
+final_df = prioritized_df.select(
+    "asset_id",
+    "cve_id",
+    col("vendor").alias("software_vendor"),
+    col("product").alias("software_name"),
+    "installed_version",
+    "hostname",
+    "device_type",
+    "business_criticality",
+    "internet_exposed",
+    "base_score",
+    "base_severity",
+    "score_source",
+    "patch_status",
+    "priority",
+)
+
+print("final exposures:", final_df.count())
+final_df.groupBy("priority").count().show()
+final_df.groupBy("patch_status").count().show()
+
+final_df.write.mode("overwrite").parquet(OUTPUT_PATH)
+print("saved:", OUTPUT_PATH)
 
 spark.stop()
