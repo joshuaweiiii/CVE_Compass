@@ -7,7 +7,7 @@ Development notes and learning log: [`docs/dev_notes.md`](docs/dev_notes.md)
 ## Table of Contents
 
 - [Overview](#overview)
-- [Results](#results-current-local-pipeline)
+- [Results](#results)
 - [Pipeline](#pipeline)
 - [Data Model](#data-model)
 - [Data Sources](#data-sources)
@@ -24,9 +24,9 @@ Security teams receive thousands of new CVEs every week. Most don't affect their
 
 Company data (assets, installed software, patch tickets) is synthetic, so the project is safe, legal, and fully shareable. Vulnerability data is real.
 
-The local Python pipeline is complete. Next phases rebuild it in PySpark, Databricks (Bronze / Silver / Gold), and Azure (see [Roadmap](#roadmap)).
+The pipeline runs locally in plain Python and in PySpark, and both produce identical results. Next phases move it to Databricks (Bronze / Silver / Gold) and Azure (see [Roadmap](#roadmap)).
 
-## Results (current local pipeline)
+## Results
 
 One week of real CVEs (published Sept 1–7, 2026) matched against a synthetic 500-machine company:
 
@@ -49,6 +49,8 @@ Priority breakdown:
 
 Out of 18,056 exposures, the security team gets a short list of **37** to fix immediately.
 
+The PySpark rebuild (`spark_match.py`) reproduces these results exactly: a row-by-row comparison against the Python output found zero differences across all 18,056 exposures.
+
 ## Pipeline
 
 ```text
@@ -58,6 +60,9 @@ fetch_nvd_window.py ──► profile_nvd_window.py
 generate_synthetic.py ──► match_window.py ──► generate_synthetic_patches.py ──► match_window.py
 (assets + software)        (exposures)          (patch tickets)                  (final exposures
                                                                                    with patch status)
+                                                                          or ──► spark_match.py
+                                                                                  (same result in
+                                                                                   PySpark, Parquet)
 ```
 
 | Script | What it does | Output |
@@ -67,6 +72,7 @@ generate_synthetic.py ──► match_window.py ──► generate_synthetic_pat
 | `scripts/generate_synthetic.py` | Generates 500 assets and their installed software (seeded, reproducible) | `data/raw/synthetic/generated/assets500.json`, `installed_software1396.json` |
 | `scripts/match_window.py` | Matches CVE products and version ranges to installed software, joins assets and patches (all `open` if no patch file yet), assigns priority | `data/processed/exposures_window.json` |
 | `scripts/generate_synthetic_patches.py` | Generates patch tickets for ~60% of asset + CVE pairs, weighted by priority | `data/raw/synthetic/generated/patches_records9773.json` |
+| `scripts/spark_match.py` | PySpark version of `match_window.py`: flattens nested NVD JSON with `explode`, joins on vendor + product, checks version ranges, joins assets and patches, assigns priority | `data/processed/exposures_spark/` (Parquet) |
 
 ## Data Model
 
@@ -138,19 +144,24 @@ python scripts/generate_synthetic_patches.py
 
 # 7. Final match, now joined with patch status
 python scripts/match_window.py
+
+# 8. (Optional) Same match in PySpark, saved as Parquet
+python scripts/spark_match.py
 ```
 
 The generated patch tickets are already committed, so steps 5–6 are optional. Running step 7 alone uses the committed tickets.
+
+Step 8 needs Java 17 or 21 installed, since Spark runs on the JVM. Check with `java -version`.
 
 ## Project Structure
 
 ```text
 cve_compass/
-├── scripts/                     # current pipeline (5 scripts above)
+├── scripts/                     # current pipeline (6 scripts above)
 ├── data/
 │   ├── raw/nvd/                 # NVD pulls (not committed; re-create with fetch script)
 │   ├── raw/synthetic/generated/ # generated assets, software, patch tickets
-│   └── processed/               # exposures output (not committed)
+│   └── processed/               # exposures output: JSON (Python) and Parquet (Spark), not committed
 ├── prototype/                   # early versions: first API call, substring matcher, hand-written samples
 ├── docs/dev_notes.md            # development notes and learning log
 └── requirements.txt             # Python dependencies
@@ -159,7 +170,7 @@ cve_compass/
 ## Roadmap
 
 - [x] Local Python pipeline: NVD pull, profiling, synthetic data, version-range matching, prioritization
-- [ ] PySpark: rebuild flattening and joins as DataFrames
+- [x] PySpark: rebuild flattening and joins as DataFrames (matches Python output exactly)
 - [ ] Databricks: Bronze / Silver / Gold Delta tables
 - [ ] Azure: Data Factory ingestion, ADLS storage, Azure SQL serving layer
 - [ ] Power BI: exposure and priority dashboard
