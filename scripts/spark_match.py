@@ -34,16 +34,12 @@ patches_df = spark.read.option("multiLine", True).json("data/raw/synthetic/gener
 nvd_df = spark.read.option("multiLine", True).json("data/raw/nvd/window_page_*.json")
 vulns_df = nvd_df.select(explode("vulnerabilities").alias("vuln")) #one row per CVE, vuln is col name
 
-print("cves:", vulns_df.count())
-
 #one row per configuration, carrying the CVE id and status along
 configs_df = vulns_df.select(
     col("vuln.cve.id").alias("cve_id"),
     col("vuln.cve.vulnStatus").alias("vuln_status"),
     explode("vuln.cve.configurations").alias("config"),
 )
-print("configurations:", configs_df.count())
-configs_df.select("cve_id", "vuln_status").show(5)
 
 #one row per node
 nodes_df = configs_df.select(
@@ -51,7 +47,6 @@ nodes_df = configs_df.select(
     "vuln_status",
     explode("config.nodes").alias("node"),
 )
-print("nodes:", nodes_df.count())
 
 #one row per cpeMatch entry (one product or platform the CVE mentions)
 cpe_matches_df = nodes_df.select(
@@ -59,13 +54,10 @@ cpe_matches_df = nodes_df.select(
     "vuln_status",
     explode("node.cpeMatch").alias("cpe_match"),
 )
-print("cpe matches:", cpe_matches_df.count())
 
 #pulls only vulnerable (product not platform thats broken)
 vulnerable_df = cpe_matches_df.filter(
     (col("cpe_match.vulnerable") == True) & (col("vuln_status") != "Rejected"))
-
-print("vulnerable:", vulnerable_df.count())
 
 #cpe_match nested column into flat table with vendor, product, and version
 parts = split(col("cpe_match.criteria"), ":")
@@ -78,9 +70,6 @@ cve_products_df = vulnerable_df.select(
     "cpe_match.versionEndIncluding", #all broken up to this
     "cpe_match.versionEndExcluding" #first fixed one
 )
-print("cve_products:", cve_products_df.count())
-cve_products_df.show(5, truncate=False)
-print("unique_cves:", cve_products_df.select("cve_id").distinct().count())
 
 #pair each CVE product with every machine that has that product installed (no version control yet)
 candidates_df = cve_products_df.join(
@@ -89,13 +78,6 @@ candidates_df = cve_products_df.join(
     & (cve_products_df.product == softwares_df.software_name),
     "inner",
 )
-print("candidates:", candidates_df.count())
-print("candidate_assets:", candidates_df.select("asset_id").distinct().count())
-print("candidate_cves:", candidates_df.select("cve_id").distinct().count())
-candidates_df.select(
-    "cve_id", "asset_id", "product", "installed_version",
-    "versionStartIncluding", "versionEndIncluding", "versionEndExcluding",
-).show(5, truncate=False)
 
 #version check: keep only candidates whose installed version is actually vulnerable
 installed = version_array("installed_version")
@@ -114,12 +96,9 @@ vulnerable_matches_df = candidates_df.filter(
     (is_exact & (col("installed_version") == col("cpe_version")))
     | (~is_exact & in_range)
 )
-print("vulnerable_matches:", vulnerable_matches_df.count())
 
 #one CVE can list overlapping ranges for the same product, so keep one row per machine + CVE + product
 exposures_df = vulnerable_matches_df.dropDuplicates(["asset_id", "cve_id", "vendor", "product"])
-print("exposures:", exposures_df.count())
-print("assets_affected:", exposures_df.select("asset_id").distinct().count())
 
 #CVSS v3.1 score per CVE: Primary (NVD) first, else Secondary (vendor/CNA)
 cvss_v31 = col("vuln.cve.metrics.cvssMetricV31")
@@ -178,7 +157,8 @@ final_df = prioritized_df.select(
     "priority",
 )
 
-print("final exposures:", final_df.count())
+print("exposures found:", final_df.count())
+print("assets affected:", final_df.select("asset_id").distinct().count())
 final_df.groupBy("priority").count().show()
 final_df.groupBy("patch_status").count().show()
 
