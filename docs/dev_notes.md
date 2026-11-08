@@ -12,7 +12,7 @@ Learning log and design notes behind the project. For the project summary, resul
 - [6. Generated Synthetic Data](#6-generated-synthetic-data)
 - [7. Version-Range Matcher](#7-version-range-matcher)
 - [8. Generated Patch Tickets](#8-generated-patch-tickets)
-- [9. Git and Repo Lessons](#9-git-and-repo-lessons)
+- [9. PySpark Rebuild](#9-pyspark-rebuild)
 - [10. Open Issues / Future Improvements](#10-open-issues--future-improvements)
 
 ---
@@ -260,11 +260,85 @@ Lesson learned: a probability like `random.random() < 0.4` must be rolled **insi
 - Result: 9,773 tickets. After joining into the matcher: `patch_now` dropped 76 → 37, and 4,377 exposures became `done`.
 - `match_window.py` still runs if the patch file is missing (everything treated as `open`).
 
-## 9. Open Issues / Future Improvements
+## 9. PySpark Rebuild
+
+`scripts/spark_match.py` → `data/processed/exposures_spark/` (Parquet)
+
+Same logic as `match_window.py`, rewritten as DataFrame operations. Verified with a row-by-row comparison (`exceptAll` in both directions) against `exposures_window.json`: 0 differences across all 18,056 exposures.
+
+Setup: `pip install pyspark` (4.2.0) plus Java 17 or 21, because Spark runs on the JVM.
+
+### Python → Spark
+
+| Python (`match_window.py`) | Spark (`spark_match.py`) |
+|---|---|
+| `json.load` | `spark.read.option("multiLine", True).json(...)` |
+| nested `for` loops over configurations / nodes / cpeMatch | one `explode` per level |
+| `if not cpe_match["vulnerable"]: continue` | `.filter(col("cpe_match.vulnerable") == True)` |
+| `criteria.split(":")[3]` | `split(col("cpe_match.criteria"), ":")[3]` |
+| `software_by_product` dict lookup | `.join(...)` on vendor + product |
+| `version_tuple` | `version_array`: `transform(split(...), lambda part: part.cast("int"))` |
+| `seen` set | `.dropDuplicates(["asset_id", "cve_id", "vendor", "product"])` |
+| `patches_by_id.get(...)` → `"open"` if missing | left join + `coalesce(col("patch_status"), lit("open"))` |
+| `if / elif / else` priority | `when(...).when(...).otherwise(...)` |
+| `json.dump` | `.write.mode("overwrite").parquet(...)` |
+
+### Flattening the NVD JSON
+
+Each step selects the columns to keep and explodes one list. `cve_id` and `vuln_status` must be listed in every `select`, or they are dropped.
+
+| DataFrame | One row per... | Rows |
+|---|---|---|
+| `nvd_df` | page file (wildcard path) | 2 |
+| `vulns_df` | CVE | 2,204 |
+| `configs_df` | configuration (CVEs without one disappear, replacing the Python `continue`) | 787 |
+| `nodes_df` | node | 1,071 |
+| `cpe_matches_df` | cpeMatch entry | 7,739 |
+| `vulnerable_df` | `vulnerable: true`, not Rejected | 2,053 |
+| `cve_products_df` | flat: vendor, product, cpe_version, range fields | 2,053 (580 CVEs) |
+
+- Configuration = one setup where the CVE applies (e.g., Chrome on Windows). Node = a group of products in that setup. cpeMatch = one product or platform.
+- `select` on a nested field (`col("vuln.cve.id")`) pulls it up to a top-level column. The dot means "go inside," like `vuln["cve"]["id"]`.
+
+### Matching
+
+| Step | Rows |
+|---|---|
+| Join `cve_products_df` to software on vendor + product (versions not compared yet) | 54,888 candidates (500 assets, 131 CVEs) |
+| Version check | 18,596 |
+| `dropDuplicates` | 18,056 exposures (470 assets) |
+
+- Join size = CVE range rows × machines with that product. Example: 20 Firefox ranges × 5 Firefox machines = 100 candidate rows.
+- Version arrays compare left to right like Python tuples.
+- A `NULL` range field means no limit on that side, so each check is `col(field).isNull() | (installed >= version_array(field))`.
+- All 540 duplicates were a machine's version falling inside two different ranges of the same CVE.
+
+### CVSS Score
+
+Built as a separate `cve_scores_df` (one row per CVE) and joined on `cve_id`, instead of carrying score columns through every explode.
+
+- `filter_array(cvssMetricV31, lambda m: m.type == "Primary")` keeps Primary entries.
+- `try_element_at(..., lit(1))` takes the first one, or `NULL` if none. It counts from 1, and doesn't error on an empty list.
+- `coalesce(primary, secondary)`: Primary first, else Secondary, same as `get_cvss_v31`.
+
+### Gotchas
+
+- **`_corrupt_record`:** Spark expects one JSON record per line by default. The generated files are one indented list, so they need `multiLine`.
+- **`FIELD_NOT_FOUND` for `versionStartExcluding`:** Spark builds the schema from the data, and no CVE in this week uses that field, so the column doesn't exist.
+- **Scary wildcard warning:** reading `window_page_*.json` prints a `FileNotFoundException` stack trace marked `WARN`. Spark first checks for a folder with that literal name, then expands the wildcard. Harmless.
+- **`df.vulnerable` fails for nested fields.** Use `col("cpe_match.vulnerable")`.
+- **Conditions use `&`, `|`, `~`**, not `and` / `or` / `not`, and each condition needs its own parentheses.
+- **`printSchema` without `()`** prints `<bound method ...>` instead of the schema.
+- **Each `.count()` reruns the plan** (lazy evaluation). Debug counts after every step were removed once the counts matched.
+- **Spark is slower here:** ~7 seconds, mostly startup. It pays off on data too big for one machine, not 18,000 rows.
+- **Parquet output is a folder:** one `part-00000-*.snappy.parquet` data file, an empty `_SUCCESS` marker (write finished), and hidden `.crc` checksums. 42 KB vs 7.8 MB for the same rows as JSON.
+
+## 10. Open Issues / Future Improvements
 
 - **Platform conditions ignored:** CPE AND/OR logic is not evaluated, so a "Chrome on Windows" CVE also matches Chrome on macOS.
 - **Letter versions:** `version_tuple` only handles numbers (`1.0.2k` would crash).
 - **Coverage:** only 26% of new CVEs have CPE data. Other sources (vendor advisories, description parsing) could fill gaps.
 - **Accepted risk priority:** currently shows as `review`; could get its own label so it doesn't clutter the to-do list.
 - **Timestamps:** synthetic timestamps are fixed strings; could be randomized within realistic ranges.
-- **Next phase:** rebuild the pipeline in PySpark (flatten CVEs → CPE rows, join to software), then Databricks Bronze / Silver / Gold.
+- **`versionStartExcluding` in Spark:** `spark_match.py` doesn't check it, because the field doesn't exist in this week's data. A future pull that includes it would be read but ignored. Fix: define the schema explicitly, or add the column when it's missing.
+- **Next phase:** Databricks Bronze / Silver / Gold. `spark_match.py` splits naturally: raw JSON reads (Bronze), flattened `cve_products_df` plus clean asset, software, and patch tables (Silver), final exposures with priority (Gold).
